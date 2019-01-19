@@ -1,1 +1,11 @@
-This is where the details to the design go.
+#This is where the details to the design go.
+
+"The Project 1 design should have the following:
+
+The classes that you know of now. Obviously we may add more or edit what we have, but this will be a good estimate on what you will be doing.  If there is a connection (inheritance), make sure to show/state that.
+
+In each class, try to give a rough idea of the information you will be storing and possible functions.  You don't have to go into a large amount of detail here.  Just need the top view look at what you think you will need.
+
+Since Project 1 is only text based input, how do you think the interaction will work.  What type of stuff does the user have to do or select. Some of the ideas might be better suited for the Graphical User Interface (GUI), so how will you simulate the interactions for Project 1?
+
+Last part will be stating any rules that will need to be addressed. If there is something that you have to assume, state that. Most of this will go into your back-end code."
