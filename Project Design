@@ -9,3 +9,31 @@ In each class, try to give a rough idea of the information you will be storing a
 Since Project 1 is only text based input, how do you think the interaction will work.  What type of stuff does the user have to do or select. Some of the ideas might be better suited for the Graphical User Interface (GUI), so how will you simulate the interactions for Project 1?
 
 Last part will be stating any rules that will need to be addressed. If there is something that you have to assume, state that. Most of this will go into your back-end code."
+
+/*
+
+I thought we could have a base abstract class called ChessPiece that would have:
+
+variables:
+'position' a 2d vector stored in an arrayList that holds the piece's xy position on the grid and 
+
+-'inPlay' a boolean value that tells you if a piece has been taken
+
+methods:
+-'move' a wrapper function that has information about piece specific movement ()
+-'add' adds the current position vector with potential moves to return possible final positions.
+-'askOpen' void, asks the board
+-'tellOpen' boolean, tells the board that the piece is there. Informs board iff the piece moves or 'inPlay' turns false
+-'takePiece' informs another object that their 'inPlay' value should be changed to false
+-'setInPlay' changes inPlay to false and informs the board that there is no longer a piece at that position
+
+class ChessBoard
+variables:
+-'board' a 2d array of all possible positions and each position holds the value of the player
+(because which piece it is wont matter to this logic, just that its there so that objects can know
+if they cant move there because their piece is there, or if they can take the other player's piece)
+
+methods:
+-'getPosition' returns a string of which player is at that location if any player is there
+
+*/
