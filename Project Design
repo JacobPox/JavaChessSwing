@@ -37,3 +37,33 @@ methods:
 -'getPosition' returns a string of which player is at that location if any player is there
 
 */
+
+Jacob's Thoughts:
+
+Classes:
+Board
+ValidateMove (to make sure the move is allowed)
+King
+Queen
+Knight
+Bishop
+Rook
+Pawn
+Screen
+
+For the pieces and their respective classes, validatemove can be used to check each pattern (king can only move one at a time, queen can go horizontal/veritcal/diagonal as far as she wants).
+
+The board will hold information of where all the pieces are and represent the 8x8 board.
+
+The screen will generate something to be seen based on the board class (or this could be combined, I don’t know yet)
+
+ValidateMove will check many things. It needs to have information of how each piece is allowed to move, check to see if the move goes off the board, and also make sure that you can’t put yourself in check.
+
+Even with text based input, you could use algebraic notation to make a move that is commonly used in chess already.
+
+Some specific cases that have to be considered:
+
+Pawns can move 2 times if it is their first move. 
+En passant is a very specific case with pawns and how they can attack
+Castling has a few rules in order to be done such as no piece in between the king and rook being in check and neither pieces have moved.
+Many others, since chess largely is a game of rules.
