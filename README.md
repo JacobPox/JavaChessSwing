@@ -4,7 +4,7 @@ CMPSC 221 Project building a chess game using Java.
 ## Class Structure
 
 * Piece
-  * King (subclass)
+  * King
   * Queen
   * Rook
   * Bishop
