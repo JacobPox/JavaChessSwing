@@ -1,4 +1,20 @@
 public class ChessBoard {
+  /*
+  The board stores pieces in a 2D array, ranging from [0][0] to [7][7]
+  These positions correspond to the chess board positions H1 to A8
+
+  Below is a reference for each index and its corresponding position.
+
+  board[0][x] --> H row
+  board[1][x] --> G row
+  board[2][x] --> F row
+  board[3][x] --> E row
+  board[4][x] --> D row
+  board[5][x] --> C row
+  board[6][x] --> B row
+  board[7][x] --> A row
+
+  */
 
     String[][] board = new String[8][8];
     public void fillBoard() {
