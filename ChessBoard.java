@@ -45,6 +45,12 @@ public class ChessBoard {
   */
 
     String[][] board = new String[8][8];
+    
+    /*
+    String[] letters = new String[]{"A", "B", "C", "D", "E", "F", "G", "H"};
+    String[] numbers = new String[]{"8","7","6","5","4","3","2","1"};
+    */
+    
     public void fillBoard() {
         //Fills the empty spaces
         for (int i = 0; i < 8; i++) {
@@ -112,4 +118,12 @@ public class ChessBoard {
     board[startI][startJ] = " ";
 
   }
+  /*
+  public String getNotation(int pos1, int pos2) {
+      Returns the standard location on the board back.
+      return letters[pos1-1] + numbers[pos2];
+  } 
+  */
+  
+    
 }
