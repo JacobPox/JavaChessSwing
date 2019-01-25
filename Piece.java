@@ -52,7 +52,7 @@ public class Piece
                 this.curY = y;
                 
                 //tell board[x][y] that this piece is here now
-                board.setThisPiece(x, y);
+                board.setThisPiece(this.player, x, y);
             }
             /*
             if the space isnt empty but everything else checks out
@@ -79,7 +79,7 @@ public class Piece
                     not a real method in ChessBoard yet
                     should set board[x][y] to this player's piece
                     */
-                    board.setThisPiece(x, y);
+                    board.setThisPiece(this.player, x, y);
                 }
                 else
                 {
