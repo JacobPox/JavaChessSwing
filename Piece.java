@@ -120,7 +120,7 @@ public class Piece
     public boolean isTakeable(int x, int y)
     {
         //can't move on top of your own piece
-        if(board.playerAt(x, y) == this.player)
+        if(board.playerAt(x, y).equals(this.player))
             return false;
         else
         {
