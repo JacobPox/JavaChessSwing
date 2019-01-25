@@ -52,7 +52,7 @@ public class Piece
                 this.curY = y;
                 
                 //tell board[x][y] that this piece is here now
-                board.placeMyPiece(x, y);
+                board.setThisPiece(x, y);
             }
             /*
             if the space isnt empty but everything else checks out
@@ -79,7 +79,7 @@ public class Piece
                     not a real method in ChessBoard yet
                     should set board[x][y] to this player's piece
                     */
-                    board.placeMyPiece(x, y);
+                    board.setThisPiece(x, y);
                 }
                 else
                 {
@@ -136,7 +136,7 @@ public class Piece
         to the desired final position. If there is an obstruction (of any piece)
         return false
         */
-        if(board.pathIsClear(this.curX, this.curY, finX, finY))
+        if(board.pathClear(this.curX, this.curY, finX, finY))
             return true;
         else
             return false;
