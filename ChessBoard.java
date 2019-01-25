@@ -125,5 +125,47 @@ public class ChessBoard {
   } 
   */
   
+
+  
+  /*
+  
+  Quick note to self so I don't freak out and think we need an ArrayList:
+  
+  if every board[x][y] will hold a Piece object therefore it will know who
+  owns them (Piece.getPlayer()) and it's type (Piece.getType() will be overridden
+  and just return the type of piece)
+  
+  The only other thing is to translate Piece's (x, y) into this class's coordinate system 
+  
+  
+  Methods needed for Piece:
+  
+  public String playerAt(x, y)
+  {
+    returns a string of the player's name at (x, y) if a player is there
+  }
+  
+  public boolean pathClear(xi, yi, xf, yf)
+  {
+    checks if all of the spaces (excluding (xi, yi) and (xf, yf) themselves) in the horizontal, vertical, or diagonal direction
+    from (xi, yi) to (xf, yf) are empty. returns false if any player's piece is in the way
+  }
+  
+  public void setThisPiece(instanceOfPiece, x, y)
+  {
+    have the piece class send instance of the piece it wants at (x, y) (it currently sends the players name
+    and where they want the piece, but not what type of piece it is) and then place that piece at (x, y)
+  }
+  
+  public void removePiece(x, y)
+  {
+    tell the piece at (x, y) to set inPlay to false and make this spot empty
+  }
+  
+  public boolean isEmpty(x, y)
+  {
+    returns true if no piece is at location (x, y)
+  }
+  */
     
 }
