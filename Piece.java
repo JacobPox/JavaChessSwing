@@ -14,16 +14,20 @@ public class Piece
     private static Board board;  //every piece shares the same instance of board
     private boolean inPlay;      //in Play is only false when a piece gets taken
     private String player;
+    private String pieceType; 
     
     //current x and y positions (indeces of board[x][y]) on the board
     private int curX;
     private int curY;
     
-    //constructor gets passed the starting location of each piece because not
-    //every instance of the same child class will have the same initial location
-    public Piece(String player, int x, int y)
+    /*
+    constructor gets passed the starting location of each piece because not
+    every instance of the same child class will have the same initial location
+    */
+    public Piece(String player, String pieceType, int x, int y)
     {
         this.player = player;
+        this.pieceType = pieceType;
         this.inPlay = true; 
         this.curX = x;
         this.curY = y;
@@ -31,7 +35,7 @@ public class Piece
     
     
     //Either moves piece to (x, y) or tells user to pick another location
-    private void updatePos(int x, int y)
+    public void updatePos(int x, int y)
     {
         /*
         Checks if the path up to (but not inclusing) position (x, y) is clear,
@@ -105,7 +109,7 @@ public class Piece
     }
     
     //returns true if no piece is on (x, y)
-    private boolean spaceEmpty(int x, int y)
+    public boolean spaceEmpty(int x, int y)
     {
        //not a real method in ChessBoard yet
        return board.isEmpty(x, y);
@@ -159,5 +163,12 @@ public class Piece
     protected boolean putsSelfInCheck(int x, int y)
     {
         return false;
+    }
+    
+    //toString
+    @override
+    public String toString()
+    {
+        return player + "'s " + pieceType + " is at (" + x + ", " + y + ")";   
     }
 }
