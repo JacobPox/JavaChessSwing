@@ -11,6 +11,7 @@ public class Rook extends Piece
     public boolean moveLegal(int finX, int finY)
     {
         //x is unchanged xor y is unchanged
-        return (finX == this.curX) ^ (finY == this.curY);
+        if(!(finX == 0 && finY == 0))
+            return (finX == this.curX) ^ (finY == this.curY);
     }
 }
