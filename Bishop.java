@@ -7,6 +7,7 @@ public class Bishop extends Piece
         super(player, "bishop", x, y);
     }
     
+    @Override
     public boolean legalMove(int finX, int finY)
     {
         //changes in x and y
