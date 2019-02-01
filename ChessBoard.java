@@ -44,7 +44,7 @@ public class ChessBoard {
 
   */
 
-    String[][] board = new String[8][8];
+    Piece[][] board = new Piece[8][8];
     
     /*
     String[] letters = new String[]{"A", "B", "C", "D", "E", "F", "G", "H"};
@@ -53,45 +53,51 @@ public class ChessBoard {
     
     public void fillBoard() {
         //Fills the empty spaces
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                board[i][j] = " ";
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                board[x][y] = null;
             }
         }
+
+        // Declare all the pieces that will be used
+
         
         // Uppercase for black pieces, lowercase for white pieces.
 
+        String team1 = "black";
+        String team2 = "white";
+
         // Rooks
-        board [0][0] = "R";
-        board [0][7] = "R";
-        board [7][0] = "r";
-        board [7][7] = "r";
+        board [0][0] = new Rook(team1, "R", 0, 0);
+        board [7][0] = new Rook(team1, "R", 0, 7);
+        board [0][7] = new Rook(team2, "r", 7, 0);
+        board [7][7] = new Rook(team2, "r", 7, 7);
 
         // Knights
-        board [0][1] = "N";
-        board [0][6] = "N";
-        board [7][1] = "n";
-        board [7][6] = "n";
+        board [1][0] = new Knight(team1, "N", 1, 0);
+        board [6][0] = new Knight(team1, "N", 6, 0);
+        board [1][7] = new Knight(team2, "n", 1, 7);
+        board [6][7] = new Knight(team2, "n", 6, 7);
 
         //Bishops
-        board [0][2] = "B";
-        board [0][5] = "B";
-        board [7][2] = "b";
-        board [7][5] = "b";
+        board [2][0] = new Bishop(team1, "B", 2, 0);
+        board [5][0] = new Bishop(team1, "B", 5, 0);
+        board [2][7] = new Bishop(team2, "b", 2, 7);
+        board [5][7] = new Bishop(team2, "b", 5, 7);
 
         //Queens
-        board [0][3] = "Q";
-        board [7][3] = "q";
+        board [3][0] = new Queen(team1, "Q", 3, 0);
+        board [3][7] = new Queen(team2, "q", 3, 7);
 
         //Kings
-        board [0][4] = "K";
-        board [7][4] = "k";
+        board [4][0] = new King(team1, "K", 4, 0);
+        board [4][7] = new King(team2, "k", 4, 7);
 
 
         //Pawns
         for (int i = 0; i < 8; i++) {
-            board[1][i] = "P";
-            board[6][i] = "p";
+            board[i][1] = new Pawn(team1, "P", i, 1);
+            board[i][6] = new Pawn(team2, "p", i, 1);
         }
     }
 
@@ -139,33 +145,51 @@ public class ChessBoard {
   
   
   Methods needed for Piece:
-  
-  public String playerAt(x, y)
-  {
-    returns a string of the player's name at (x, y) if a player is there
-  }
-  
-  public boolean pathClear(xi, yi, xf, yf)
-  {
-    checks if all of the spaces (excluding (xi, yi) and (xf, yf) themselves) in the horizontal, vertical, or diagonal direction
-    from (xi, yi) to (xf, yf) are empty. returns false if any player's piece is in the way
-  }
-  
-  public void setThisPiece(instanceOfPiece, x, y)
-  {
-    have the piece class send instance of the piece it wants at (x, y) (it currently sends the players name
-    and where they want the piece, but not what type of piece it is) and then place that piece at (x, y)
-  }
-  
-  public void removePiece(x, y)
-  {
-    tell the piece at (x, y) to set inPlay to false and make this spot empty
-  }
-  
-  public boolean isEmpty(x, y)
-  {
-    returns true if no piece is at location (x, y)
-  }
+
   */
+
+  public String playerAt(int x, int y)
+  {
+    return board[x][y].getPlayer();
+  }
+  
+  /*
+  checks if all of the spaces (excluding (xi, yi) and (xf, yf) themselves) in the horizontal, vertical, or diagonal direction
+  from (xi, yi) to (xf, yf) are empty. returns false if any player's piece is in the way
+  */
+
+  
+  public boolean pathClear(int xi, int yi, int xf, int yf)
+  {
+    /*
+    int deltaX = xf-xi;
+    int deltaY = yf-yi;
+
+    if(deltaX)
+    */
+
+    return true;
+  }
+  
+  public void setThisPiece(Piece instanceOfPiece)
+  {
+    board[instanceOfPiece.getX()][instanceOfPiece.getY()] = instanceOfPiece;
+  }
+  
+  public void removePiece(int x, int y)
+  {
+    board[x][y].changeinPlay(false);
+  }
+  
+  public boolean isEmpty(int x, int y)
+  {
+    if (board[x][y].equals("")) {
+      return true;
+    }
+
+    return false;
+  }
+
+  
     
 }

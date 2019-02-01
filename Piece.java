@@ -7,18 +7,18 @@ matrix notation that will be important to keep in mind when working with the
 specific pieces
 */
 
-package piece;
+package ProjectOverlord;
 
 public class Piece
 {
-    private static Board board;  //every piece shares the same instance of board
-    private boolean inPlay;      //in Play is only false when a piece gets taken
-    private String player;
-    private String pieceType; 
+    protected static ChessBoard board;  //every piece shares the same instance of board
+    protected boolean inPlay;      //in Play is only false when a piece gets taken
+    protected String player;
+    protected String pieceType; 
     
     //current x and y positions (indeces of board[x][y]) on the board
-    private int curX;
-    private int curY;
+    protected int curX;
+    protected int curY;
     
     /*
     constructor gets passed the starting location of each piece because not
@@ -52,7 +52,7 @@ public class Piece
                 this.curY = y;
                 
                 //tell board[x][y] that this piece is here now
-                board.setThisPiece(this.player, x, y);
+                board.setThisPiece(this);
             }
             /*
             if the space isnt empty but everything else checks out
@@ -79,7 +79,7 @@ public class Piece
                     not a real method in ChessBoard yet
                     should set board[x][y] to this player's piece
                     */
-                    board.setThisPiece(this.player, x, y);
+                    board.setThisPiece(this);
                 }
                 else
                 {
@@ -165,10 +165,27 @@ public class Piece
         return false;
     }
     
+    public String getPlayer()
+    {
+      return this.player;
+    }
+
+    public void changeInPlay(boolean value) {
+        this.inPlay = value;
+    }
+
+    public int getX() {
+      return this.curX;
+    }
+
+    public int getY() {
+      return this.curY;
+    }
+
     //toString
-    @override
+    @Override
     public String toString()
     {
-        return player + "'s " + pieceType + " is at (" + x + ", " + y + ")";   
+        return this.pieceType;  
     }
 }

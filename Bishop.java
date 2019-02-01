@@ -1,4 +1,4 @@
-package piece;
+package ProjectOverlord;
 public class Bishop extends Piece
 {
     public Bishop(String player, int x, int y)
@@ -8,7 +8,7 @@ public class Bishop extends Piece
     }
     
     @Override
-    public boolean legalMove(int finX, int finY)
+    public boolean moveLegal(int finX, int finY)
     {
         //changes in x and y
         int deltaX = finX - this.curX;
@@ -17,3 +17,4 @@ public class Bishop extends Piece
         //to be a diagonal line the change in x must be +/- the change in y
         return (deltaX == deltaY || deltaX == -deltaY) && (deltaX != 0);
     }
+}

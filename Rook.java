@@ -1,10 +1,11 @@
-package piece;
+package ProjectOverlord;
 public class Rook extends Piece
 {   
-    public Rook(String player, int x, int y)
+    public Rook(String player, String piece, int x, int y)
     {
         //setting initial board position
-        super(player, "rook", x, y);
+
+        super(player, piece, x, y);
     }
     
     @Override
