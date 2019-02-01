@@ -158,19 +158,80 @@ public class ChessBoard {
   from (xi, yi) to (xf, yf) are empty. returns false if any player's piece is in the way
   */
 
-  
+  //checks if a straight or diagonal path is clear along the board
   public boolean pathClear(int xi, int yi, int xf, int yf)
   {
     /*
+    if(xf < xi)
+    {
+      //maybe switch it so that the smaller x value's ordered pair is always the initial values
+      //that way the casesalways move with an increasing x value
+    }
     int deltaX = xf-xi;
     int deltaY = yf-yi;
-
-    if(deltaX)
     */
+    //rook style move in the y direction
+    if(deltaX == 0 && deltaY != 0)
+    {
+      if(yf > yi)
+      {
+        //check each space with increasing y values
+        for(int i = yi + 1; i < yf; i++)
+        {
+          if(board[xf][i] != null)
+          {
+            //if board[xf][i] != null a piece is there
+            return false
+          }
+        }
+        return true;
+      }
+      else //looping from yf to yi if yf is a smaller number to make y always increase
+      {
+        for(int i = yf + 1; i < yi; i++)
+        {
+          if(board[xf][i] != null)
+            return false;
+        }
+      }
+      
+    //rook style move in the x direction  
+    if(deltaY == 0 && deltaX != 0)
+    {
+      if(xf > xi)
+      {
+        //check each space with increasing y values
+        for(int i = xi + 1; i < xf; i++)
+        {
+          if(board[yf][i] != null)
+          {
+            //if board[yf][i] != null a piece is there
+            return false
+          }
+        }
+        return true;
+      }
+      else //looping from xf to xi if xf is a smaller number to make x always increase
+      {
+        for(int i = xf + 1; i < xi; i++)
+        {
+          if(board[yf][i] != null)
+            return false;
+        }
+      }
+      
+      //bishop style move
+      if(deltaX == deltaY || deltaX == -deltaY)
+      {
+        
+      }
+    }
 
-    return true;
+   // have a final return value if necessary, probably false;
   }
   
+    
+  //sets piece at its newly set location. is the last action (after all the checks) of updatePos in Piece.java 
   public void setThisPiece(Piece instanceOfPiece)
   {
     board[instanceOfPiece.getX()][instanceOfPiece.getY()] = instanceOfPiece;
