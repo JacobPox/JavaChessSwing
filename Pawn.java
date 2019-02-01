@@ -6,3 +6,4 @@ public class Pawn extends Piece
 
         super(player, piece, x, y);
     }
+}
