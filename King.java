@@ -7,4 +7,4 @@ public class King extends Piece
         super(player, piece, x, y);
     }
     
-    }
+}
