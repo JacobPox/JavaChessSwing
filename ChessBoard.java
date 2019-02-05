@@ -250,6 +250,22 @@ public class ChessBoard {
 
     return false;
   }
+  
+  /*
+  public boolean isCheck() {
+  Current idea for looking for check (best explained by example)
+  Check 1. "Are there any enemy rooks in play?"
+  If yes, 
+  Check 2. "Are any rooks in the same file as the king?"
+  If yes,
+  Check 3. "Are there any pieces in between the king and rook?"
+  
+  This would apply to queen/bishop
+  
+  Knight is similar in that you check if there are any first, then if there are knights you can see if it can legally get to the king.
+  If it can, that's check.
+  }
+  */
 
   
     
