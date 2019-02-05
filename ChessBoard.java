@@ -1,14 +1,5 @@
 package ProjectOverlord;
 
-/*
-TO DO:
-- Give the algebraic notation of move made.
-- Give selection of choices such as:
-  - Make next move.
-  - See log of moves so far (algebraic notation)
-  - Quit.
-*/
-
 public class ChessBoard {
   /*
   The board stores pieces in a 2D array, ranging from [0][0] to [7][7]
@@ -16,7 +7,7 @@ public class ChessBoard {
 
   Below is a reference for each index and its corresponding position.
     
-  First position is row, second position is column.
+  First index is x coordinate (A-H), second index is y coordinate (starting from the top to bottom, 8-1).
 
   board[0][] --> 1st row
   board[1][] --> 2nd row
@@ -38,18 +29,15 @@ public class ChessBoard {
     
   Example:
     
-    White's King starts on board[7][4]
+    White's King starts on board[4][7]
+    (4 to the right, 7 down)
     
-    Black's Queen starts on board[0][3]
+    Black's Queen starts on board[3][0]
+    (3 to the right, 0 down)
 
   */
 
     Piece[][] board = new Piece[8][8];
-    
-    /*
-    String[] letters = new String[]{"A", "B", "C", "D", "E", "F", "G", "H"};
-    String[] numbers = new String[]{"8","7","6","5","4","3","2","1"};
-    */
     
     public void fillBoard() {
         //Fills the empty spaces
@@ -59,10 +47,10 @@ public class ChessBoard {
             }
         }
 
-        // Declare all the pieces that will be used
-
-        
-        // Uppercase for black pieces, lowercase for white pieces.
+        /* 
+        Declare all the pieces that will be used.
+        Uppercase for black pieces, lowercase for white pieces.
+        */
 
         String team1 = "black";
         String team2 = "white";
@@ -102,6 +90,7 @@ public class ChessBoard {
     }
 
     public void presentBoard() {
+      //Prints board
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
             System.out.print(board[i][j] + " | ");
@@ -112,65 +101,38 @@ public class ChessBoard {
 
   public void updateBoard(int startI, int startJ, int endI, int endJ) {
     /*
-    First two parameters are the coordinates of the piece being moved. The second parameters are the coordinates of the piece's new location.
-
-    This method will first get the piece on the starting position and then store that. The position will then be replaced with an "X" (could be subject to change) denoting that a piece moved from that position. After that, the piece is placed on the new position (assuming it is a legal move). The "X" will disappear afterwards (so the board doesn't get cluttered.)
+    First two parameters are the coordinates of the piece being moved. 
+    The second parameters are the coordinates of the piece's new location.
+    
+    This method will first get the piece on the starting position and then store that. 
+    The position will then be replaced with an "X",
+    denoting that a piece moved from that position. 
+    After that, the piece is placed on the new position (assuming it is a legal move). 
+    The "X" will disappear afterwards (so the board doesn't get cluttered.)
     */
     System.out.println();
-    String pieceName = board[startI][startJ];
+    String pieceName = board[startI][startJ].getType();
     board[startI][startJ] = "X";
     board[endI][endJ] = pieceName;
     presentBoard();
     board[startI][startJ] = " ";
 
   }
-  /*
-  public String getNotation(int pos1, int pos2) {
-      Returns the standard location on the board back.
-      return letters[pos1-1] + numbers[pos2];
-  } 
-  */
   
-
-  
-  /*
-  
-  Quick note to self so I don't freak out and think we need an ArrayList:
-  
-  if every board[x][y] will hold a Piece object therefore it will know who
-  owns them (Piece.getPlayer()) and it's type (Piece.getType() will be overridden
-  and just return the type of piece)
-  
-  The only other thing is to translate Piece's (x, y) into this class's coordinate system 
-  
-  
-  Methods needed for Piece:
-
-  */
-
   public String playerAt(int x, int y)
   {
+    //Returns name of player at position (white or black)
     return board[x][y].getPlayer();
   }
-  
-  /*
-  checks if all of the spaces (excluding (xi, yi) and (xf, yf) themselves) in the horizontal, vertical, or diagonal direction
-  from (xi, yi) to (xf, yf) are empty. returns false if any player's piece is in the way
-  */
 
-  //checks if a straight or diagonal path is clear along the board
+
   public boolean pathClear(int xi, int yi, int xf, int yf)
   {
     /*
-    if(xf < xi)
-    {
-      //maybe switch it so that the smaller x value's ordered pair is always the initial values
-      //that way the casesalways move with an increasing x value
-    }
-    int deltaX = xf-xi;
-    int deltaY = yf-yi;
+    Checks every position in between (not including) the start and end position.
     */
-    //rook style move in the y direction
+    
+    //rook style move in y direction
     if(deltaX == 0 && deltaY != 0)
     {
       if(yf > yi)
@@ -230,20 +192,21 @@ public class ChessBoard {
    // have a final return value if necessary, probably false;
   }
   
-    
-  //sets piece at its newly set location. is the last action (after all the checks) of updatePos in Piece.java 
   public void setThisPiece(Piece instanceOfPiece)
   {
+    //Sets piece at the new location (final method called when moving a piece, if it makes it to this point)
     board[instanceOfPiece.getX()][instanceOfPiece.getY()] = instanceOfPiece;
   }
   
   public void removePiece(int x, int y)
   {
+    //Removes piece at location (as in, the piece was taken)
     board[x][y].changeinPlay(false);
   }
   
   public boolean isEmpty(int x, int y)
   {
+    //Checks to see if the position is occupied by a piece. If it isn't, return true (it is empty).
     if (board[x][y].equals("")) {
       return true;
     }
