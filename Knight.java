@@ -1,4 +1,3 @@
-package ProjectOverlord;
 public class Knight extends Piece
 {   
     public Knight(String player, String piece, int x, int y)

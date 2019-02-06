@@ -7,8 +7,6 @@ matrix notation that will be important to keep in mind when working with the
 specific pieces
 */
 
-package ProjectOverlord;
-
 public class Piece
 {
     protected static ChessBoard board;  //every piece shares the same instance of board

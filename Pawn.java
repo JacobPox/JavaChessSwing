@@ -22,8 +22,8 @@ public class Pawn extends Piece
         hasMoved = true;
         }
         
-        int deltaX == finX - this.curX;
-        int deltaY == finY - this.curY;
+        int deltaX = finX - this.curX;
+        int deltaY = finY - this.curY;
         
         /* Cases
         1. Moved forward once
@@ -33,8 +33,8 @@ public class Pawn extends Piece
         
         return (
         (Math.abs(deltaY) == 1 && deltaX == 0) ||
-        (Math.abs(deltaY) == 2 && deltaX == 0 && hasMoved = false) ||
-        (Math.abs(deltaY) == 1 && Math.abs(deltaX) == 1 && isTakeable(finX, finY));
+        (Math.abs(deltaY) == 2 && deltaX == 0 && hasMoved == false) ||
+        (Math.abs(deltaY) == 1 && Math.abs(deltaX) == 1 && isTakeable(finX, finY)));
         
     }
 }

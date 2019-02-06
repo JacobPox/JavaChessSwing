@@ -1,4 +1,3 @@
-package ProjectOverlord;
 public class Rook extends Piece
 {   
     public Rook(String player, String piece, int x, int y)
@@ -14,5 +13,7 @@ public class Rook extends Piece
         //x is unchanged xor y is unchanged
         if(!(finX == 0 && finY == 0))
             return (finX == this.curX) ^ (finY == this.curY);
+        //Default to false
+        return false;
     }
 }

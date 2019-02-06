@@ -1,5 +1,3 @@
-package ProjectOverlord;
-
 public class ChessBoard {
   /*
   The board stores pieces in a 2D array, ranging from [0][0] to [7][7]
@@ -98,26 +96,6 @@ public class ChessBoard {
         System.out.println();
     }
 }
-
-  public void updateBoard(int startI, int startJ, int endI, int endJ) {
-    /*
-    First two parameters are the coordinates of the piece being moved. 
-    The second parameters are the coordinates of the piece's new location.
-    
-    This method will first get the piece on the starting position and then store that. 
-    The position will then be replaced with an "X",
-    denoting that a piece moved from that position. 
-    After that, the piece is placed on the new position (assuming it is a legal move). 
-    The "X" will disappear afterwards (so the board doesn't get cluttered.)
-    */
-    System.out.println();
-    String pieceName = board[startI][startJ].getType();
-    board[startI][startJ] = "X";
-    board[endI][endJ] = pieceName;
-    presentBoard();
-    board[startI][startJ] = " ";
-
-  }
   
   public String playerAt(int x, int y)
   {
@@ -126,72 +104,66 @@ public class ChessBoard {
   }
 
 
-  public boolean pathClear(int xi, int yi, int xf, int yf)
-  {
+  public boolean pathClear(int xi, int yi, int xf, int yf) {
     /*
     Checks every position in between (not including) the start and end position.
     */
-    
-    //rook style move in y direction
-    if(deltaX == 0 && deltaY != 0)
-    {
-      if(yf > yi)
-      {
-        //check each space with increasing y values
-        for(int i = yi + 1; i < yf; i++)
-        {
-          if(board[xf][i] != null)
-          {
-            //if board[xf][i] != null a piece is there
-            return false
-          }
-        }
-        return true;
-      }
-      else //looping from yf to yi if yf is a smaller number to make y always increase
-      {
-        for(int i = yf + 1; i < yi; i++)
-        {
-          if(board[xf][i] != null)
-            return false;
-        }
-      }
-      
-    //rook style move in the x direction  
-    if(deltaY == 0 && deltaX != 0)
-    {
-      if(xf > xi)
-      {
-        //check each space with increasing y values
-        for(int i = xi + 1; i < xf; i++)
-        {
-          if(board[yf][i] != null)
-          {
-            //if board[yf][i] != null a piece is there
-            return false
-          }
-        }
-        return true;
-      }
-      else //looping from xf to xi if xf is a smaller number to make x always increase
-      {
-        for(int i = xf + 1; i < xi; i++)
-        {
-          if(board[yf][i] != null)
-            return false;
-        }
-      }
-      
-      //bishop style move
-      if(deltaX == deltaY || deltaX == -deltaY)
-      {
-        
-      }
-    }
 
-   // have a final return value if necessary, probably false;
+        int deltaX = xf - xi;
+        int deltaY = yf - yi;
+
+      //rook style move in y direction
+      if (deltaX == 0 && deltaY != 0) {
+          if (yf > yi) {
+              //check each space with increasing y values
+              for (int i = yi + 1; i < yf; i++) {
+                  if (board[xf][i] != null) {
+                      //if board[xf][i] != null a piece is there
+                      return false;
+                  }
+              }
+              return true;
+          } else //looping from yf to yi if yf is a smaller number to make y always increase
+          {
+              for (int i = yf + 1; i < yi; i++) {
+                  if (board[xf][i] != null)
+                      return false;
+              }
+          }
+
+          //rook style move in the x direction
+          if (deltaY == 0 && deltaX != 0) {
+              if (xf > xi) {
+                  //check each space with increasing y values
+                  for (int i = xi + 1; i < xf; i++) {
+                      if (board[yf][i] != null) {
+                          //if board[yf][i] != null a piece is there
+                          return false;
+                      }
+                  }
+                  return true;
+              } else //looping from xf to xi if xf is a smaller number to make x always increase
+              {
+                  for (int i = xf + 1; i < xi; i++) {
+                      if (board[yf][i] != null)
+                          return false;
+                  }
+              }
+
+              //bishop style move
+              if (deltaX == deltaY || deltaX == -deltaY) {
+
+              }
+          }
+
+          // have a final return value if necessary, probably false;
+          //Placeholder is to return false for now
+
+      }
+      //Placeholder is to return false for now
+      //THIS MUST BE CHANGED for final product.
+      return false;
   }
-  
   public void setThisPiece(Piece instanceOfPiece)
   {
     //Sets piece at the new location (final method called when moving a piece, if it makes it to this point)
@@ -201,7 +173,7 @@ public class ChessBoard {
   public void removePiece(int x, int y)
   {
     //Removes piece at location (as in, the piece was taken)
-    board[x][y].changeinPlay(false);
+    board[x][y].changeInPlay(false);
   }
   
   public boolean isEmpty(int x, int y)

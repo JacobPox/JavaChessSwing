@@ -1,4 +1,3 @@
-package ProjectOverlord;
 public class Bishop extends Piece
 {
     public Bishop(String player, String piece, int x, int y)
