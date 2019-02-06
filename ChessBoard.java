@@ -99,6 +99,8 @@ public class ChessBoard {
         }
         System.out.println();
     }
+    //adding a newline between each board update
+    System.out.println();
 }
   
   public String playerAt(int x, int y)
