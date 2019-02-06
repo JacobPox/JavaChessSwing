@@ -2,9 +2,9 @@ import java.lang.*;
 
 public class King extends Piece
 {   
-    public King(String player, int x, int y)
+    public King(String player, String piece, int x, int y)
     {
-        super(player, "king", x, y);
+        super(player, piece, x, y);
     }
     
     @Override
