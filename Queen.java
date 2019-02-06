@@ -1,9 +1,9 @@
 package ProjectOverlord;
 public class Queen extends Piece
 {
-    public Queen(String player, int x, int y)
+    public Queen(String player, String piece, int x, int y)
     {
-        super(player, "queen", x, y);
+        super(player, piece, x, y);
     }
     
     @Override
