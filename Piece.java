@@ -30,6 +30,17 @@ public class Piece
         this.curX = x;
         this.curY = y;
     }
+
+    public void sudoUpdatePos(int x, int y) {
+        /* This is not meant to be used in an actual game, but is a method that allows for illegal moves.
+        This method should only be used for testing.
+         */
+
+        board.removePiece(x,y);
+        this.curX = x;
+        this.curY = y;
+        board.setThisPiece(this);
+    }
     
     
     //Either moves piece to (x, y) or tells user to pick another location
@@ -62,21 +73,14 @@ public class Piece
             {
                 if(isTakeable(x, y))
                 {
-                    /*
-                    not a real method in ChessBoard yet
-                    tell the board to set the opponents inPlay value to false
-                    for the piece at (x, y)
+                    /* Checks to see if the piece is on the opponent's team.
                     */
                     board.removePiece(x, y);
                     
                     //update current position
                     this.curX = x;
                     this.curY = y;
-                    
-                    /*
-                    not a real method in ChessBoard yet
-                    should set board[x][y] to this player's piece
-                    */
+
                     board.setThisPiece(this);
                 }
                 else
