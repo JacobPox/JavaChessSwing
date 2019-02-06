@@ -13,7 +13,7 @@ public class Queen extends Piece
         int deltaY = finY - this.curX;
         
         //checks if the queen moves like a bishop, then a rook
-        if(!(finX == 0 && finY == 0))
+        if(!(deltaX == 0 && deltaY == 0))
         {
             if((deltaX == deltaY || deltaX == -deltaY) && (deltaX != 0))
                 return true;
