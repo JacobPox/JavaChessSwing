@@ -1,10 +1,10 @@
 package ProjectOverlord;
 public class Bishop extends Piece
 {
-    public Bishop(String player, int x, int y)
+    public Bishop(String player, String piece, int x, int y)
     {
         //setting initial board position
-        super(player, "bishop", x, y);
+        super(player, piece, x, y);
     }
     
     @Override
