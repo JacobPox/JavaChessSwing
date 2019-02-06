@@ -25,4 +25,5 @@ This class provides a visual representation of the board. Each piece on the boar
 * Add in check and check mate features.
 * Allow user input
 * Translate notation into index position and vice versa.
+* Change pieceType to enum instead of strings.
 
