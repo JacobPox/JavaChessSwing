@@ -10,8 +10,10 @@ public class Rook extends Piece
     @Override
     public boolean moveLegal(int finX, int finY)
     {
+        deltaX = finX - this.x;
+        deltaY = finY - this.y;
         //x is unchanged xor y is unchanged
-        if(!(finX == 0 && finY == 0))
+        if(!(deltaX == 0 && deltaY == 0))
             return (finX == this.curX) ^ (finY == this.curY);
         //Default to false
         return false;
