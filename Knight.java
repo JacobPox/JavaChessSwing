@@ -1,10 +1,10 @@
 package ProjectOverlord;
 public class Knight extends Piece
 {   
-    public Knight(String player, int x, int y)
+    public Knight(String player, String piece, int x, int y)
     {
         //setting initial board position
-        super(player, "knight", x, y);
+        super(player, piece, x, y);
     }
     
     @Override
