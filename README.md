@@ -26,4 +26,5 @@ This class provides a visual representation of the board. Each piece on the boar
 * Allow user input
 * Translate notation into index position and vice versa.
 * Change pieceType to enum instead of strings.
+* Add variables keeping track of the number of each piece type (Eg: 2 Rooks)
 
