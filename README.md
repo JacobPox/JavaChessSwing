@@ -1,5 +1,5 @@
 # ProjectOverlord
-CMPSC 221 Project building a chess game using Java.
+Chess Game built with Java.
 
 ## Class Structure
 
