@@ -41,7 +41,7 @@ public class ChessBoard {
         //Fills the empty spaces
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                board[x][y] = null;
+                board[x][y] = new Empty(x, y);
             }
         }
 
@@ -87,12 +87,16 @@ public class ChessBoard {
         }
     }
 
+    public void placePawn(int x, int y) {
+      board[x][y] = new Pawn("solo", "X", x, y);
+    }
+
     public void presentBoard() {
       //Prints board
     for (int i = 0; i < 8; i++) {
         System.out.print("| ");
         for (int j = 0; j < 8; j++) {
-            if(board[j][i] != null)
+            if(!board[j][i].pieceType.equals(" "))
                 System.out.print(board[j][i] + " | ");
             else
                 System.out.print("  | ");
@@ -123,7 +127,7 @@ public class ChessBoard {
           if (yf > yi) {
               //check each space with increasing y values
               for (int i = yi + 1; i < yf; i++) {
-                  if (board[xf][i] != null) {
+                  if (!board[xf][i].pieceType.equals(" ")) {
                       //if board[xf][i] != null a piece is there
                       return false;
                   }
@@ -132,7 +136,7 @@ public class ChessBoard {
           } else //looping from yf to yi if yf is a smaller number to make y always increase
           {
               for (int i = yf + 1; i < yi; i++) {
-                  if (board[xf][i] != null)
+                  if (!board[xf][i].pieceType.equals(" "))
                       return false;
               }
           }
@@ -142,7 +146,7 @@ public class ChessBoard {
               if (xf > xi) {
                   //check each space with increasing y values
                   for (int i = xi + 1; i < xf; i++) {
-                      if (board[yf][i] != null) {
+                      if (!board[xf][i].pieceType.equals(" ")) {
                           //if board[yf][i] != null a piece is there
                           return false;
                       }
@@ -151,7 +155,7 @@ public class ChessBoard {
               } else //looping from xf to xi if xf is a smaller number to make x always increase
               {
                   for (int i = xf + 1; i < xi; i++) {
-                      if (board[yf][i] != null)
+                      if (!board[xf][i].pieceType.equals(" "))
                           return false;
                   }
               }
