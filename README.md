@@ -1,5 +1,5 @@
 # ProjectOverlord
-Chess Game built with Java.
+Creating chess with Java.
 
 ## Class Structure
 
