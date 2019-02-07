@@ -10,22 +10,22 @@ public class Knight extends Piece
     public boolean moveLegal(int finX, int finY)
     {
         //eight legal moves
-        if(finX == this.curX++ && finY == this.curY + 2)
+        if((finX == this.curX+1) && (finY == this.curY + 2))
             return true;
-        if(finX == this.curX++ && finY == this.curY - 2)
+        if((finX == this.curX+1) && (finY == this.curY - 2))
             return true;
-        if(finX == this.curX-- && finY == this.curY + 2)
+        if((finX == this.curX-1) && (finY == this.curY + 2))
             return true;
-        if(finX == this.curX-- && finY == this.curY - 2)
+        if((finX == this.curX-1) && (finY == this.curY - 2))
             return true;
         
-        if(finY == this.curY++ && finX == this.curX + 2)
+        if((finY == this.curY+1) && (finX == this.curX + 2))
             return true;
-        if(finY == this.curY++ && finX == this.curX - 2)
+        if((finY == this.curY+1) && (finX == this.curX - 2))
             return true;
-        if(finY == this.curY-- && finX == this.curX + 2)
+        if((finY == this.curY-1) && (finX == this.curX + 2))
             return true;
-        if(finY == this.curY-- && finX == this.curX - 2)
+        if((finY == this.curY-1) && (finX == this.curX - 2))
             return true;
         
         return false;
