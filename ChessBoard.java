@@ -87,10 +87,6 @@ public class ChessBoard {
         }
     }
 
-    public void placePawn(int x, int y) {
-      board[x][y] = new Pawn("solo", "X", x, y);
-    }
-
     public void presentBoard() {
       //Prints board
     for (int i = 0; i < 8; i++) {
