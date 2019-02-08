@@ -110,65 +110,96 @@ public class ChessBoard {
   }
 
 
-  public boolean pathClear(int xi, int yi, int xf, int yf) {
+  public boolean pathClear(int xi, int yi, int xf, int yf) //start at pos +1 !!!!!!!!!!!!!!!!!!!!!!!!!! not done !!!!!!!!!!!!!!!!!!!
+  {
     /*
     Checks every position in between (not including) the start and end position.
     */
-
-        int deltaX = xf - xi;
-        int deltaY = yf - yi;
-
-      //rook style move in y direction
-      if (deltaX == 0 && deltaY != 0) {
-          if (yf > yi) {
-              //check each space with increasing y values
-              for (int i = yi + 1; i < yf; i++) {
-                  if (!board[xf][i].pieceType.equals(" ")) {
-                      //if board[xf][i] != null a piece is there
-                      return false;
-                  }
-              }
-              return true;
-          } else //looping from yf to yi if yf is a smaller number to make y always increase
+    deltaX = xf - xi;
+    deltaY = yf - yi;
+    
+    /////////////////////////////
+    // vertical rook movements //
+    /////////////////////////////
+    if(deltaY != 0 && deltaX == 0)
+    {
+      //case where y increases from yi to yf
+      if(yf > yi)
+      {
+        for(int i = yi; i < yf; i++)
+        {
+          if(!board[xi][i].getPiece().equals(" "))
           {
-              for (int i = yf + 1; i < yi; i++) {
-                  if (!board[xf][i].pieceType.equals(" "))
-                      return false;
-              }
+            // if there isnt an empty piece at any intermediate position return false
+            return false;
           }
-
-          //rook style move in the x direction
-          if (deltaY == 0 && deltaX != 0) {
-              if (xf > xi) {
-                  //check each space with increasing y values
-                  for (int i = xi + 1; i < xf; i++) {
-                      if (!board[xf][i].pieceType.equals(" ")) {
-                          //if board[yf][i] != null a piece is there
-                          return false;
-                      }
-                  }
-                  return true;
-              } else //looping from xf to xi if xf is a smaller number to make x always increase
-              {
-                  for (int i = xf + 1; i < xi; i++) {
-                      if (!board[xf][i].pieceType.equals(" "))
-                          return false;
-                  }
-              }
-
-              //bishop style move
-              if (deltaX == deltaY || deltaX == -deltaY) {
-
-              }
-          }
-
-          // have a final return value if necessary, probably false;
-          //Placeholder is to return false for now
-
+        }
+        return true; // looped through all intermediate positions wihout detecting another piece
       }
-      //Placeholder is to return false for now
-      //THIS MUST BE CHANGED for final product.
-      return false;
+      else //case where y increases from yf to yi
+      {
+        for(int i = yf; i < yi; i++)
+        {
+          if(!board[xi][i].getPiece().equals(" "))
+          {
+            // if there isnt an empty piece at any intermediate position return false
+            return false;
+          }
+        }
+        return true; // looped through all intermediate positions wihout detecting another piece
+      }
+      
+    ///////////////////////////////
+    // horizontal rook movements //
+    ///////////////////////////////
+    if(deltaX != 0 && deltaY == 0)
+    {
+      //case where x increases from xi to xf
+      if(xf > xi)
+      {
+        for(int i = xi; i < xf; i++)
+        {
+          if(!board[i][yi].getPiece().equals(" "))
+          {
+            // if there isnt an empty piece at any intermediate position return false
+            return false;
+          }
+        }
+        return true; // looped through all intermediate positions wihout detecting another piece
+      }
+      else //case where x increases from xf to xi
+      {
+        for(int i = xf; i < xi; i++)
+        {
+          if(!board[i][yi].getPiece().equals(" "))
+          {
+            // if there isnt an empty piece at any intermediate position return false
+            return false;
+          }
+        }
+        return true; // looped through all intermediate positions wihout detecting another piece
+      }
+      
+      ////////////////////////////
+      // Bishop style movements //
+      ////////////////////////////
+      
+      //checking if it's a rook move
+      if(Math.abs(deltaX) == Math.abs(deltaY))
+      {  
+        //x increases and y increases
+        if(deltaX > 0 && deltaY > 0)
+        {
+          for(int i = xi; i < xf)
+        }
+      
+        //x decreases and y decreases
+        //x decreases and y increases
+        //x increases and y decreases
+      }
+      
+    }//end of method
+    
   }
   public void setThisPiece(Piece instanceOfPiece)
   {
