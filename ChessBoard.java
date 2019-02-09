@@ -126,7 +126,7 @@ public class ChessBoard {
       //case where y increases from yi to yf
       if(yf > yi)
       {
-        for(int i = yi; i < yf; i++)
+        for(int i = yi + 1; i < yf; i++)
         {
           if(!board[xi][i].getPiece().equals(" "))
           {
@@ -138,7 +138,7 @@ public class ChessBoard {
       }
       else //case where y increases from yf to yi
       {
-        for(int i = yf; i < yi; i++)
+        for(int i = yf + 1; i < yi; i++)
         {
           if(!board[xi][i].getPiece().equals(" "))
           {
@@ -157,7 +157,7 @@ public class ChessBoard {
       //case where x increases from xi to xf
       if(xf > xi)
       {
-        for(int i = xi; i < xf; i++)
+        for(int i = xi + 1; i < xf; i++)
         {
           if(!board[i][yi].getPiece().equals(" "))
           {
@@ -169,7 +169,7 @@ public class ChessBoard {
       }
       else //case where x increases from xf to xi
       {
-        for(int i = xf; i < xi; i++)
+        for(int i = xf + 1; i < xi; i++)
         {
           if(!board[i][yi].getPiece().equals(" "))
           {
@@ -190,7 +190,10 @@ public class ChessBoard {
         //x increases and y increases
         if(deltaX > 0 && deltaY > 0)
         {
-          for(int i = xi; i < xf)
+          for(int i = xi + 1; i < xf; )
+          {
+            for(int j = yi + 1; )
+          }
         }
       
         //x decreases and y decreases
