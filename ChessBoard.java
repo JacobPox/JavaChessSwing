@@ -184,24 +184,79 @@ public class ChessBoard {
       // Bishop style movements //
       ////////////////////////////
       
-      //checking if it's a rook move
+      //checking if it's a bishop move
       if(Math.abs(deltaX) == Math.abs(deltaY))
       {  
         //x increases and y increases
         if(deltaX > 0 && deltaY > 0)
         {
-          for(int i = xi + 1; i < xf; )
+          int x, y;
+          x = xi + 1;
+          y = yi + 1;
+          
+          while(x < xf && y < yf)
           {
-            for(int j = yi + 1; )
+            if(!board[x][y].getPiece().equals(" "))
+              return false;
+            x += 1;
+            y += 1;
           }
+          return true;
         }
       
         //x decreases and y decreases
+        if(deltaX < 0 && deltaY < 0)
+        {
+          int x, y;
+          x = xi - 1;
+          y = yi - 1;
+          
+          while(x > xf && y > yf)
+          {
+            if(!board[x][y].getPiece().equals(" "))
+              return false;
+            x -= 1;
+            y -= 1;
+          }
+          return true;
+        }
+        
         //x decreases and y increases
+        if(deltaX < 0 && deltaY > 0)
+        {
+          int x, y;
+          x = xi - 1;
+          y = yi + 1;
+          
+          while(x < xf && y < yf)
+          {
+            if(!board[x][y].getPiece().equals(" "))
+              return false;
+            x -= 1;
+            y += 1;
+          }
+          return true;
+        }
+        
         //x increases and y decreases
+        if(deltaX > 0 && deltaY < 0)
+        {
+          int x, y;
+          x = xi + 1;
+          y = yi - 1;
+          
+          while(x < xf && y < yf)
+          {
+            if(!board[x][y].getPiece().equals(" "))
+              return false;
+            x += 1;
+            y -= 1;
+          }
+          return true;
+        }
       }
       
-    }//end of method
+    }
     
   }
   public void setThisPiece(Piece instanceOfPiece)
