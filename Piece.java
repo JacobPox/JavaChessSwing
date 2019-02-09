@@ -56,6 +56,8 @@ public class Piece
             //if (x, y) itself is clear all other legalities have been checked
             if(spaceEmpty(x, y))
             {
+                //leaving an empty space where we move from
+                board.setThisPiece(new Empty(this.curX, this.curY));
                 //update current position
                 this.curX = x;
                 this.curY = y;
@@ -75,6 +77,9 @@ public class Piece
                 {
                     /* Checks to see if the piece is on the opponent's team.
                     */
+                    
+                    //leaving an empty space where we move from
+                     board.setThisPiece(new Empty(this.curX, this.curY));
                     board.removePiece(x, y);
                     
                     //update current position
