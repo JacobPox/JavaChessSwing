@@ -1,13 +1,6 @@
 package projectoverlord.ProjectOverlord;
 
-/*
-Right now this file has a lot of methods that dont exist yet in ChessBoard
-and the x and y need to be changed to row and col and swapped in order
-eventually like matrix notation to work with the board (or swap the board to
-(x, y) pairs if we decide that that's an easier system to work with) If we keep
-matrix notation that will be important to keep in mind when working with the
-specific pieces
-*/
+package projectoverlord.ProjectOverlord;
 
 public class Piece // piece needs to be sent the board!!!!
 {
@@ -49,7 +42,7 @@ public class Piece // piece needs to be sent the board!!!!
             if(board.isEmpty(x, y))
             {
                 //leaving an empty space where we move from
-                board.setThisPiece(new Empty(this.board, "neutral", " ", this.curX, this.curY));
+                board.setThisPiece(new Empty(board, "neutral", " ", curX, curY));
       
                 //update current position
                 this.curX = x;
@@ -73,6 +66,7 @@ public class Piece // piece needs to be sent the board!!!!
                     
                     //leaving an empty space where we move from
                     board.removePiece(x, y);
+                    board.setThisPiece(new Empty(board, "neutral", " ", curX, curY));
                     
                     //update current position
                     this.curX = x;
@@ -165,6 +159,11 @@ public class Piece // piece needs to be sent the board!!!!
     public int getY()
     {
       return this.curY;
+    }
+    
+    public boolean getInPlay()
+    {
+        return inPlay;
     }
 
     //toString
