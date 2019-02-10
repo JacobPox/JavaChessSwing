@@ -24,7 +24,11 @@ public class Main
         int[] nums = {8, 7, 6, 5, 4, 3, 2, 1};
         char[] letters = {'a', 'b', 'c', 'd',  'e',  'f',  'g', 'h'};
         
-        while(true) //really will be while either king is not in check mate or taken
+        //Checking if kings are in play to determine end of game
+        Piece whiteKing = myBoard.board[4][7];
+        Piece blackKing = myBoard.board[4][0];
+        
+        while(whiteKing.getInPlay() && blackKing.getInPlay()) //really will be while either king is not in check mate or taken
         {
             System.out.print("Enter the piece to move (Letter, number): ");
             input = keyboard.nextLine();
@@ -146,5 +150,11 @@ public class Main
             myBoard.board[xi][yi].updatePos(xf, yf);
             myBoard.presentBoard();
         }
+        
+        System.out.println("Game Over!");
+        if(blackKing.getInPlay())
+            System.out.println("Black Wins!");
+        if(whiteKing.getInPlay())
+            System.out.println("White Wins!");
     }
 }
