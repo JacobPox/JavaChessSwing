@@ -1,8 +1,10 @@
+package projectoverlord.ProjectOverlord;
+
 public class Queen extends Piece
 {
-    public Queen(String player, String piece, int x, int y)
+    public Queen(ChessBoard board, String player, String piece, int x, int y)
     {
-        super(player, piece, x, y);
+        super(board, player, piece, x, y);
     }
     
     @Override
@@ -10,7 +12,7 @@ public class Queen extends Piece
     {
         //changes in x and y
         int deltaX = finX - this.curX;
-        int deltaY = finY - this.curX;
+        int deltaY = finY - this.curY;
         
         //checks if the queen moves like a bishop, then a rook
         if(!(deltaX == 0 && deltaY == 0))
@@ -24,3 +26,4 @@ public class Queen extends Piece
         return false;
     }
 }
+
