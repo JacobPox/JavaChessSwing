@@ -1,3 +1,5 @@
+package projectoverlord.ProjectOverlord;
+
 /*
 Right now this file has a lot of methods that dont exist yet in ChessBoard
 and the x and y need to be changed to row and col and swapped in order
@@ -7,7 +9,7 @@ matrix notation that will be important to keep in mind when working with the
 specific pieces
 */
 
-public class Piece
+public class Piece // piece needs to be sent the board!!!!
 {
     protected static ChessBoard board;  //every piece shares the same instance of board
     protected boolean inPlay;      //in Play is only false when a piece gets taken
@@ -22,26 +24,15 @@ public class Piece
     constructor gets passed the starting location of each piece because not
     every instance of the same child class will have the same initial location
     */
-    public Piece(String player, String pieceType, int x, int y)
+    public Piece(ChessBoard board, String player, String pieceType, int x, int y)
     {
+        this.board = board;
         this.player = player;
         this.pieceType = pieceType;
         this.inPlay = true; 
         this.curX = x;
         this.curY = y;
     }
-
-    public void sudoUpdatePos(int x, int y) {
-        /* This is not meant to be used in an actual game, but is a method that allows for illegal moves.
-        This method should only be used for testing.
-         */
-
-        board.removePiece(x,y);
-        this.curX = x;
-        this.curY = y;
-        board.setThisPiece(this);
-    }
-    
     
     //Either moves piece to (x, y) or tells user to pick another location
     public void updatePos(int x, int y)
@@ -51,13 +42,15 @@ public class Piece
         if the move is legal (regardless of other pieces), and if (x, y)
         is a valid position on the board
         */
+        
         if(inBounds(x, y) && pathClear(x, y) && moveLegal(x, y))
         {
             //if (x, y) itself is clear all other legalities have been checked
-            if(spaceEmpty(x, y))
+            if(board.isEmpty(x, y))
             {
                 //leaving an empty space where we move from
-                board.setThisPiece(new Empty(this.curX, this.curY));
+                board.setThisPiece(new Empty(this.board, "neutral", " ", this.curX, this.curY));
+      
                 //update current position
                 this.curX = x;
                 this.curY = y;
@@ -79,7 +72,7 @@ public class Piece
                     */
                     
                     //leaving an empty space where we move from
-                     board.setThisPiece(new Empty(this.curX, this.curY));
+                    board.setThisPiece(new Empty(board, "neutral", " ", this.curX, this.curY));
                     board.removePiece(x, y);
                     
                     //update current position
@@ -95,12 +88,14 @@ public class Piece
                     attempted it illegal and loop their turn again until they
                     select a valid position
                     */
+                    System.out.println("Can't do that buddy1");
                 }
             }
         }
         else
         {
             //raise the same illegal move exception as above and loop turn again
+            System.out.println("Can't do that buddy2");
         }
     }
     
@@ -108,47 +103,22 @@ public class Piece
     public boolean inBounds(int x, int y)
     {
         //checking if (x, y) is on the board
-        if(x < 0 || x > 7)
-            return false;
-        if(y < 0 || y > 7)
-            return false;
-        return true;
+        return (x < 0 || x > 7 || y < 0 || y > 7);
     }
     
-    //returns true if no piece is on (x, y)
-    public boolean spaceEmpty(int x, int y)
+    //this method looks redundant but is necessary for subclass knight
+    public boolean pathClear(int x, int y)
     {
-       //not a real method in ChessBoard yet
-       return board.isEmpty(x, y);
+        return board.pathClear(this.curX, this.curY, x, y);
     }
-    
     
     //returns true if the opponents piece is at (x, y)
     public boolean isTakeable(int x, int y)
     {
         //can't move on top of your own piece
-        if(board.playerAt(x, y).equals(this.player))
-            return false;
-        else
-        {
-            return true;
-        }
+        return !board.playerAt(x, y).equals(this.player);
     }
-    
-    
-    public boolean pathClear(int finX, int finY)
-    {
-        /*
-        ChessBoard method pathClear checks all spaces from the current position
-        to the desired final position. If there is an obstruction (of any piece)
-        return false
-        */
-        if(board.pathClear(this.curX, this.curY, finX, finY))
-            return true;
-        else
-            return false;
-        //knight's pathClear will always return true
-    }
+
     
     /*
     Every child class will override this method and check if a move is legal
@@ -158,7 +128,8 @@ public class Piece
     */
     public boolean moveLegal(int x, int y)
     {
-        return false;
+        System.out.println("I ( moveLegal() ) should be overridden");
+        return true; //change this to false, but for now rook's move legal isnt getting overridden for some reason
     }
     
     /*
@@ -177,15 +148,23 @@ public class Piece
       return this.player;
     }
 
-    public void changeInPlay(boolean value) {
+    public void changeInPlay(boolean value)
+    {
         this.inPlay = value;
     }
+    
+    public String getPieceType()
+    {
+        return this.pieceType;
+    }
 
-    public int getX() {
+    public int getX()
+    {
       return this.curX;
     }
 
-    public int getY() {
+    public int getY()
+    {
       return this.curY;
     }
 
