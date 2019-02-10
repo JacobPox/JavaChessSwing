@@ -1,9 +1,11 @@
+package projectoverlord.ProjectOverlord;
+
 public class Knight extends Piece
 {   
-    public Knight(String player, String piece, int x, int y)
+    public Knight(ChessBoard board, String player, String piece, int x, int y)
     {
         //setting initial board position
-        super(player, piece, x, y);
+        super(board, player, piece, x, y);
     }
     
     @Override
@@ -27,7 +29,6 @@ public class Knight extends Piece
             return true;
         if((finY == this.curY-1) && (finX == this.curX - 2))
             return true;
-        
         return false;
     }
     
