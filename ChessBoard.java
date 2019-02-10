@@ -294,7 +294,6 @@ public class ChessBoard
     {
         //Removes piece at location (as in, the piece was taken)
         board[x][y].changeInPlay(false);
-        board[x][y] = new Empty(this, "neutral", " ", x, y);
     }
   
     public boolean isEmpty(int x, int y)
