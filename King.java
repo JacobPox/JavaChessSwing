@@ -21,7 +21,6 @@ public class King extends Piece
     public void changeInPlay(boolean value)
     {
         inPlay = false;
-        System.out.println("Game Over!");
     }
     
 }
