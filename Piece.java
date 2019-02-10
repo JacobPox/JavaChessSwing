@@ -72,7 +72,6 @@ public class Piece // piece needs to be sent the board!!!!
                     */
                     
                     //leaving an empty space where we move from
-                    board.setThisPiece(new Empty(board, "neutral", " ", this.curX, this.curY));
                     board.removePiece(x, y);
                     
                     //update current position
@@ -88,14 +87,14 @@ public class Piece // piece needs to be sent the board!!!!
                     attempted it illegal and loop their turn again until they
                     select a valid position
                     */
-                    System.out.println("Can't do that buddy1");
+                    System.out.println("Can't move on your own team");
                 }
             }
         }
         else
         {
             //raise the same illegal move exception as above and loop turn again
-            System.out.println("Can't do that buddy2");
+            System.out.println("Invalid move");
         }
     }
     
@@ -143,14 +142,14 @@ public class Piece // piece needs to be sent the board!!!!
         return false;
     }
     
-    public String getPlayer()
-    {
-      return this.player;
-    }
-
     public void changeInPlay(boolean value)
     {
         this.inPlay = value;
+    }
+    
+    public String getPlayer()
+    {
+      return this.player;
     }
     
     public String getPieceType()
