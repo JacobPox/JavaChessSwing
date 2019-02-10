@@ -103,7 +103,7 @@ public class Piece // piece needs to be sent the board!!!!
     public boolean inBounds(int x, int y)
     {
         //checking if (x, y) is on the board
-        return (x < 0 || x > 7 || y < 0 || y > 7);
+        return !(x < 0 || x > 7 || y < 0 || y > 7);
     }
     
     //this method looks redundant but is necessary for subclass knight
