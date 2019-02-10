@@ -1,10 +1,12 @@
+package projectoverlord.ProjectOverlord;
+
 import java.lang.*;
 
 public class King extends Piece
 {   
-    public King(String player, String piece, int x, int y)
+    public King(ChessBoard board, String player, String piece, int x, int y)
     {
-        super(player, piece, x, y);
+        super(board, player, piece, x, y);
     }
     
     @Override
@@ -12,10 +14,8 @@ public class King extends Piece
     {
         int deltaX = x - this.curX;
         int deltaY = y - this.curY;
-        if((Math.abs(deltaX) == 1 && deltaY == 0) || (Math.abs(deltaY) == 1 && deltaX == 0) || (Math.abs(deltaY) == 1 && Math.abs(deltaX) == 1))
-            return true;
-        else
-            return false;
+        return ((Math.abs(deltaX) == 1 && deltaY == 0) || (Math.abs(deltaY) == 1 && deltaX == 0) || (Math.abs(deltaY) == 1 && Math.abs(deltaX) == 1));
+
     }
     
 }
