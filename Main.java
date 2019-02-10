@@ -32,7 +32,7 @@ public class Main
         {
             System.out.print("Enter the piece to move (Letter, number): ");
             input = keyboard.nextLine();
-            switch(input.charAt(1))
+            switch(input.charAt(0))
             {
                 case 'a':
                     xi = 0;
@@ -60,7 +60,7 @@ public class Main
                     break;
             }
             
-            switch(input.charAt(4))
+            switch(input.charAt(1))
             {
                 case '8':
                     yi = 0;
@@ -91,7 +91,7 @@ public class Main
             //getting input for ending location
             System.out.print("Enter where you want it to go (Letter, number): ");
             input = keyboard.nextLine();
-            switch(input.charAt(1))
+            switch(input.charAt(0))
             {
                 case 'a':
                     xf = 0;
@@ -119,7 +119,7 @@ public class Main
                     break;
             }
             
-            switch(input.charAt(4))
+            switch(input.charAt(1))
             {
                 case '8':
                     yf = 0;
