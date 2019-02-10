@@ -15,7 +15,13 @@ public class King extends Piece
         int deltaX = x - this.curX;
         int deltaY = y - this.curY;
         return ((Math.abs(deltaX) == 1 && deltaY == 0) || (Math.abs(deltaY) == 1 && deltaX == 0) || (Math.abs(deltaY) == 1 && Math.abs(deltaX) == 1));
-
+    }
+    
+    @Override
+    public void changeInPlay(boolean value)
+    {
+        inPlay = false;
+        System.out.println("Game Over!");
     }
     
 }
