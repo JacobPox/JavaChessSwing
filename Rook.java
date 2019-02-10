@@ -1,10 +1,12 @@
+package projectoverlord.ProjectOverlord;
+
 public class Rook extends Piece
 {   
-    public Rook(String player, String piece, int x, int y)
+    public Rook(ChessBoard board, String player, String piece, int x, int y)
     {
         //setting initial board position
 
-        super(player, piece, x, y);
+        super(board, player, piece, x, y);
     }
     
     @Override
@@ -12,6 +14,7 @@ public class Rook extends Piece
     {
         int deltaX = finX - this.curX;
         int deltaY = finY - this.curY;
+        
         //x is unchanged xor y is unchanged
         if(!(deltaX == 0 && deltaY == 0))
             return (finX == this.curX) ^ (finY == this.curY);
