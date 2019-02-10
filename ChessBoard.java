@@ -35,10 +35,20 @@ public class ChessBoard
         (3 to the right, 0 down)
     */
 
-    Piece[][] board = new Piece[8][8];
+    Piece[][] board;
+    
+    public ChessBoard()
+    {
+        board = new Piece[8][8];
+        
+        System.out.println("New game beginning!");
+        fillBoard();
+        presentBoard();
+    }
     
     public void fillBoard()
     {
+        
         //Fills the empty spaces
         for (int y = 0; y < 8; y++)
         {
@@ -83,10 +93,10 @@ public class ChessBoard
         board [4][7] = new King(this, team2, "k", 4, 7);
 
         //Pawns
-        for (int i = 0; i < 8; i++)
+        for (int x = 0; x < 8; x++)
         {
-            board[i][1] = new Pawn(this, team1, "P", i, 1);
-            board[i][6] = new Pawn(this, team2, "p", i, 1);
+            board[x][1] = new Pawn(this, team1, "P", x, 1);
+            board[x][6] = new Pawn(this, team2, "p", x, 6);
         }
     }
 
@@ -109,7 +119,7 @@ public class ChessBoard
         
         //bottom of board letters
         System.out.println("  ---------------------------------");
-        System.out.println("    a   b   c   d   e   f   h   i\n");
+        System.out.println("    a   b   c   d   e   f   g   h\n\n");
     }
   
     public String playerAt(int x, int y)
@@ -284,6 +294,7 @@ public class ChessBoard
     {
         //Removes piece at location (as in, the piece was taken)
         board[x][y].changeInPlay(false);
+        board[x][y] = new Empty(this, "neutral", " ", x, y);
     }
   
     public boolean isEmpty(int x, int y)
