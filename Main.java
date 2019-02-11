@@ -30,7 +30,7 @@ public class Main
         
         while(whiteKing.getInPlay() && blackKing.getInPlay()) //really will be while either king is not in check mate or taken
         {
-            System.out.print("Enter the piece to move (Letter, number): ");
+            System.out.print("Enter starting and ending position for your move (Example: e2e4): ");
             input = keyboard.nextLine();
             switch(input.charAt(0))
             {
@@ -88,10 +88,8 @@ public class Main
                     break;
             }
             
-            //getting input for ending location
-            System.out.print("Enter where you want it to go (Letter, number): ");
-            input = keyboard.nextLine();
-            switch(input.charAt(0))
+            //ending location
+            switch(input.charAt(2))
             {
                 case 'a':
                     xf = 0;
@@ -119,7 +117,7 @@ public class Main
                     break;
             }
             
-            switch(input.charAt(1))
+            switch(input.charAt(3))
             {
                 case '8':
                     yf = 0;
