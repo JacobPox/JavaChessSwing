@@ -10,6 +10,7 @@ Creating chess with Java.
   * Bishop
   * Knight
   * Pawn
+  * Empty
 * ChessBoard
 
 ### Piece
