@@ -26,4 +26,4 @@ This class provides a visual representation of the board. Each piece on the boar
 * Add pawn promotion
 
 ## Known Bugs
-* Pawns can attack vertically.
+* Pawns can attack vertically. (fixed)
