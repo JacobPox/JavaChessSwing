@@ -44,7 +44,6 @@ Pawn promotion should be simpler. A pawn can become a queen, knight, bishop, or 
  */
 
 
-package projectoverlord.ProjectOverlord;
 import java.util.Scanner;
 
 public class Main
@@ -237,10 +236,14 @@ public class Main
                 {
                     myBoard.board[xi][yi].updatePos(xf, yf);
                     myBoard.presentBoard();
+
+                    //flipping the player turns
+                    team1Going = !team1Going;
                 }
                 else
                 {
                     System.out.println("You must move your own piece");
+                    continue;
                 }
             }
             catch (Exception e)
@@ -248,9 +251,7 @@ public class Main
                 System.out.println("That move could not be understood.");
                 continue;
             }
-            
-            //flipping the player turns
-            team1Going = !team1Going;
+
         }
         
         System.out.println("Game Over!");
