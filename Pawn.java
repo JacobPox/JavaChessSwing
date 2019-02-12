@@ -37,8 +37,8 @@ public class Pawn extends Piece
         
         return
         (
-            (Math.abs(deltaY) == 1 && deltaX == 0) ||
-            (Math.abs(deltaY) == 2 && deltaX == 0 && hasMoved == false) ||
+            (Math.abs(deltaY) == 1 && deltaX == 0 && board.isEmpty(finX, finY)) ||
+            (Math.abs(deltaY) == 2 && deltaX == 0 && hasMoved == false && board.isEmpty(finX, finY)) ||
             (Math.abs(deltaY) == 1 && Math.abs(deltaX) == 1 && isTakeable(finX, finY))
         );
         
