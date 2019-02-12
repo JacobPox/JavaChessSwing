@@ -1,7 +1,5 @@
 package projectoverlord.ProjectOverlord;
 
-package projectoverlord.ProjectOverlord;
-
 public class Piece // piece needs to be sent the board!!!!
 {
     protected static ChessBoard board;  //every piece shares the same instance of board
