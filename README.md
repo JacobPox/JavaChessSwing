@@ -25,6 +25,8 @@ This class provides a visual representation of the board. Each piece on the boar
 * Add in check and check mate features.
 * Add pawn promotion.
 * Force correct turn order.
+* Add en passant
+* Add castling
 
 ## Known Bugs
 
