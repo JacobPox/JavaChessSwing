@@ -44,6 +44,7 @@ Pawn promotion should be simpler. A pawn can become a queen, knight, bishop, or 
  */
 
 
+package projectoverlord.ProjectOverlord;
 import java.util.Scanner;
 
 public class Main
@@ -63,10 +64,6 @@ public class Main
         int yi = -1;
         int xf = -1;
         int yf = -1;
-        
-        //for translating board input to array indeces
-        int[] nums = {8, 7, 6, 5, 4, 3, 2, 1};
-        char[] letters = {'a', 'b', 'c', 'd',  'e',  'f',  'g', 'h'};
 
         //To check if a move given contains only the allowed characters
         String allowedLetters = "abcdefgh";
@@ -75,23 +72,41 @@ public class Main
         //Checking if kings are in play to determine end of game
         Piece whiteKing = myBoard.board[4][7];
         Piece blackKing = myBoard.board[4][0];
+      
+        //getting teams to switch turns
+        String whitePlayer = whiteKing.getPlayer();
+        String blackPlayer = blackKing.getPlayer();
+        
+        String player1 = whitePlayer;
+        String player2 = blackPlayer;
+        
+        boolean team1Going = true;
         
         while(whiteKing.getInPlay() && blackKing.getInPlay()) //really will be while either king is not in check mate or taken
         {
+            if(team1Going)
+                System.out.println("White's turn.");
+            else
+                System.out.println("Black's turn.");
+            
             System.out.print("Enter starting and ending position for your move (Example: e2e4): ");
-            try {
+            try
+            {
                 input = keyboard.nextLine();
 
                 // Check to make sure that the format follows letter, number, letter, number (Example: e2e4)
-                if (!(allowedLetters.contains(Character.toString(input.charAt(0))) &&
+                if (    !(allowedLetters.contains(Character.toString(input.charAt(0))) &&
                         allowedNums.contains(Character.toString(input.charAt(1))) &&
                         allowedLetters.contains(Character.toString(input.charAt(2))) &&
-                        allowedNums.contains(Character.toString(input.charAt(3))))) {
+                        allowedNums.contains(Character.toString(input.charAt(3))))
+                   )
+                {
                     System.out.println("Invalid move, did you format your move correctly? Example of correct move: g1f3");
                     continue;
                 }
 
-                switch (input.charAt(0)) {
+                switch (input.charAt(0))
+                {
                     case 'a':
                         xi = 0;
                         break;
@@ -118,7 +133,8 @@ public class Main
                         break;
                 }
 
-                switch (input.charAt(1)) {
+                switch (input.charAt(1))
+                {
                     case '8':
                         yi = 0;
                         break;
@@ -146,7 +162,8 @@ public class Main
                 }
 
                 //ending location
-                switch (input.charAt(2)) {
+                switch (input.charAt(2))
+                {
                     case 'a':
                         xf = 0;
                         break;
@@ -173,7 +190,8 @@ public class Main
                         break;
                 }
 
-                switch (input.charAt(3)) {
+                switch (input.charAt(3))
+                {
                     case '8':
                         yf = 0;
                         break;
@@ -199,20 +217,40 @@ public class Main
                         yf = 7;
                         break;
                 }
-            } catch (StringIndexOutOfBoundsException e){
+            }
+            catch (StringIndexOutOfBoundsException e)
+            {
                 System.out.println("Invalid move, did you format your move correctly? Example of correct move: g1f3");
                 continue;
-        } catch (Exception e) {
+            }   
+            catch (Exception e)
+            {
                 System.out.println("Invalid move.");
                 continue;
             }
-            try {
-                myBoard.board[xi][yi].updatePos(xf, yf);
-                myBoard.presentBoard();
-            } catch (Exception e) {
+            try
+            {
+                //checking if the player moves their own piece------------------------------------------
+                if((myBoard.board[xi][yi].getPlayer().equals("white") && team1Going) ||
+                   (myBoard.board[xi][yi].getPlayer().equals("black") && !team1Going)
+                )
+                {
+                    myBoard.board[xi][yi].updatePos(xf, yf);
+                    myBoard.presentBoard();
+                }
+                else
+                {
+                    System.out.println("You must move your own piece");
+                }
+            }
+            catch (Exception e)
+            {
                 System.out.println("That move could not be understood.");
                 continue;
             }
+            
+            //flipping the player turns
+            team1Going = !team1Going;
         }
         
         System.out.println("Game Over!");
