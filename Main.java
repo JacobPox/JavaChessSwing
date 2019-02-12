@@ -237,8 +237,10 @@ public class Main
                     myBoard.board[xi][yi].updatePos(xf, yf);
                     myBoard.presentBoard();
 
-                    //flipping the player turns
-                    team1Going = !team1Going;
+                    if (myBoard.isEmpty(xi, yi)) {
+                        //flipping the player turns
+                        team1Going = !team1Going;
+                    }
                 }
                 else
                 {
