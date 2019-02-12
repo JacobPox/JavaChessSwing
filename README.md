@@ -28,6 +28,3 @@ This class provides a visual representation of the board. Each piece on the boar
 * Add castling
 
 ## Known Bugs
-* Turn order continues if invalid move is made.
-  * Example: You try to move your king onto your own piece, this is an invalid move. But then it is the other team's turn to go despite the fact you did not move yet.
-
