@@ -6,7 +6,6 @@ To Do:
 - Add pawn promotion
 - Add en passant
 - Add castling
-- Force correct move order
 
 Comments by Jacob:
 Currently, the game works pretty well. I'm quite happy with the progress we've made and this has been a fun project.
