@@ -1,5 +1,3 @@
-package projectoverlord.ProjectOverlord;
-
 public class ChessBoard
 {
     /*
@@ -280,7 +278,7 @@ public class ChessBoard
             }
         }
       
-        System.out.println("woah nelly, path clear didnt return a real answer");
+        System.out.println("Invalid move.");
         return false;
     }
     
