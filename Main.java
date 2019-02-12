@@ -4,6 +4,9 @@ Chess Game created by Jacob and Nick
 To Do:
 - Add check and check mate features
 - Add pawn promotion
+- Add en passant
+- Add castling
+- Force correct move order
 
 Comments by Jacob:
 Currently, the game works pretty well. I'm quite happy with the progress we've made and this has been a fun project.
@@ -39,6 +42,7 @@ will have an additional requirement to move (notCheck) or something like that.
 Pawn promotion should be simpler. A pawn can become a queen, knight, bishop, or rook when it reaches the opposite end
 (row 1 or 8). We can prompt the player what piece they want to choose.
  */
+
 
 import java.util.Scanner;
 
