@@ -90,6 +90,7 @@ public class ChessBoard
         board [4][0] = new King(this, team1, "K", 4, 0);
         board [4][7] = new King(this, team2, "k", 4, 7);
 
+
         //Pawns
         for (int x = 0; x < 8; x++)
         {
@@ -301,6 +302,81 @@ public class ChessBoard
         return board[x][y].getPieceType().equals(" ");
     }
 
+    public boolean whiteKingInCheck(Piece whiteKing) {
+        int x = whiteKing.getX();
+        int y = whiteKing.getY();
+
+
+        // Check horizontal lines
+        // If we come across an enemy queen or rook first, the king is in check.
+        // If we come across a friendly piece first, the king is not in check (horizontally).
+        for (int i = 1; i <= x; i++) {
+            // See if there is a queen or rook in this row
+            if (board[x - i][y].getPieceType().equals("Q") || board[x - i][y].getPieceType().equals("R")) {
+                return true;
+            }
+            // // If there is a friendly piece, we stop looking in this direction.
+            if (board[x - i][y].getPlayer().equals("white")) {
+                break;
+            }
+            if (board[x - i][y].getPieceType().equals("P") || board[x - i][y].getPieceType().equals("B") ||
+                    board[x - i][y].getPieceType().equals("N") || board[x - i][y].getPieceType().equals("K")) {
+                break;
+            }
+        }
+            for (int i = 1; i <= 7 - x; i++) {
+                // See if there is a queen or rook in this row
+                if (board[x + i][y].getPieceType().equals("Q") || board[x + i][y].getPieceType().equals("R")) {
+                    return true;
+                }
+                // // If there is a friendly piece, we stop looking in this direction.
+                if (board[x + i][y].getPlayer().equals("white")) {
+                    break;
+
+                }
+                if (board[x + i][y].getPieceType().equals("P") || board[x + i][y].getPieceType().equals("B") ||
+                        board[x + i][y].getPieceType().equals("N") || board[x + i][y].getPieceType().equals("K")) {
+                    break;
+                }
+
+            }
+
+            // Check vertical lines
+        for (int i = 1; i <= y; i++) {
+            // See if there is a queen or rook in this column
+            if (board[x][y - i].getPieceType().equals("Q") || board[x][y - i].getPieceType().equals("R")) {
+                return true;
+            }
+            // If there is a friendly piece, we stop looking in this direction.
+            if (board[x][y - i].getPlayer().equals("white")) {
+                break;
+            }
+            if (board[x][y - i].getPieceType().equals("P") || board[x][y - i].getPieceType().equals("B") ||
+                    board[x][y - i].getPieceType().equals("N") || board[x][y - i].getPieceType().equals("K")) {
+                break;
+            }
+
+
+        }
+        for (int i = 1; i <= 7 - y; i++) {
+            // See if there is a queen or rook in this row
+            if (board[x][y + i].getPieceType().equals("Q") || board[x][y + i].getPieceType().equals("R")) {
+                return true;
+            }
+            // If there is a friendly piece, we stop looking in this direction.
+            if (board[x][y + i].getPlayer().equals("white")) {
+                break;
+            // If there is an enemy piece in this line that isn't a queen or rook, we can stop looking in this direction.
+            }
+            if (board[x][y + i].getPieceType().equals("P") || board[x][y + i].getPieceType().equals("B") ||
+                    board[x][y + i].getPieceType().equals("N") || board[x][y + i].getPieceType().equals("K")) {
+                break;
+            }
+
+        }
+
+        return false;
+    }
 
   
     /*
