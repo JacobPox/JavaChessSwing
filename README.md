@@ -1,13 +1,7 @@
-# ProjectOverlord
-Creating chess with Java.
-
-## Features
-* Completely playable.
-* Enforces legal moves.
-* Allows pawn promotions.
+# Creating chess with Java.
 
 ## To Do List
-* Add in check and check mate features.
+* Improve check features
 * Add en passant
 * Add castling
 
