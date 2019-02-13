@@ -39,7 +39,7 @@ public class ChessBoard
     {
         board = new Piece[8][8];
         
-        System.out.println("New game beginning!\nWhite pieces are lowercase\nBlack pieces are uppercase");
+        System.out.println("New game beginning!");
         fillBoard();
         presentBoard();
     }
