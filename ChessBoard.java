@@ -96,6 +96,7 @@ public class ChessBoard
             board[x][1] = new Pawn(this, team1, "P", x, 1);
             board[x][6] = new Pawn(this, team2, "p", x, 6);
         }
+
     }
 
     public void presentBoard()
@@ -299,6 +300,8 @@ public class ChessBoard
         //Checks to see if the position is occupied by a piece. If it isn't, return true (it is empty).
         return board[x][y].getPieceType().equals(" ");
     }
+
+
   
     /*
     public boolean isCheck() {
