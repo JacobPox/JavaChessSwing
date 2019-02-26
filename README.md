@@ -4,6 +4,7 @@
 * Improve check features
 * Add en passant
 * Add castling
+* Improve UI
 
 ## Known Bugs
 * Wrong message sent during an invalid move. This is caused by the following steps:
