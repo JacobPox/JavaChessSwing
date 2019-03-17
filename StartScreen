@@ -1,0 +1,63 @@
+package projectoverlord.ProjectOverlord;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+
+public class StartScreen extends JFrame implements ActionListener
+{
+    //Game launch screen component
+    private JButton startButton;
+    private JLabel prompt;
+    private JTextField name1;
+    private JTextField name2;
+    private MainGameFrame gameFrame;
+    
+    public StartScreen()
+    {
+        super("Chess");
+        addComponents();
+    }
+    
+    //eventually should use gridbaglayout
+    private void addComponents()
+    {
+        
+        //setLayout(new GridBagLayout());
+        setLayout(new FlowLayout());
+        
+        //initializing the components
+        prompt = new JLabel("Enter Player Names");
+        name1 = new JTextField(7);
+        name2 = new JTextField(7);
+        startButton = new JButton("Begin Game");
+        startButton.addActionListener(this);
+        
+        //putting the componentsin the frame
+        add(prompt);
+        add(name1);
+        add(name2);
+        add(startButton);
+        
+        //stuff that's just gotta be done dawg
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+
+    //listens to the button
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == startButton)
+        {
+            startButtonClicked();
+        }
+    }
+    
+    //if the button is clicked the chessboard and images are loaded and MainGameFrame takes over
+    public void startButtonClicked()
+    {
+        gameFrame = new MainGameFrame();
+    }
+}
