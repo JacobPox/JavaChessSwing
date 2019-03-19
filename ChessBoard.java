@@ -36,6 +36,8 @@ public class ChessBoard
     */
 
     Piece[][] board;
+    ArrayList<Piece> blackPieces = new ArrayList<Piece>();
+    ArrayList<Piece> whitePieces = new ArrayList<Piece>();
     
     public ChessBoard()
     {
@@ -110,10 +112,6 @@ public class ChessBoard
     }
     
     public void storePieces() {
-        // Create the list of pieces to each team
-        ArrayList<Piece> blackPieces = new ArrayList<Piece>();
-        ArrayList<Piece> whitePieces = new ArrayList<Piece>();
-        
         
         for (int x = 0; x < 8; x++) {
             blackPieces.add(board[x][0]);
@@ -335,9 +333,26 @@ public class ChessBoard
         int x = whiteKing.getX();
         int y = whiteKing.getY();
         
+        for (Piece p : blackPieces) {
+            if (p.moveLegal(x, y) && p.getInPlay() && p.pathClear(x, y)) {
+                return true;
+            }
+        }
+      
+        return false;
+
+    }
+    
+    public boolean blackKingInCheck(Piece blackKing) {
+        int x = blackKing.getX();
+        int y = blackKing.getY();
         
-        
-        
+        for (Piece p : whitePieces) {
+            if (p.moveLegal(x, y) && p.getInPlay() && p.pathClear(x, y)) {
+                return true;
+            }
+        }
+      
         return false;
 
     }
