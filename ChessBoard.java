@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class ChessBoard
 {
     /*
@@ -97,6 +99,17 @@ public class ChessBoard
             board[x][1] = new Pawn(this, team1, "P", x, 1);
             board[x][6] = new Pawn(this, team2, "p", x, 6);
         }
+        
+        //Store each team's pieces in an array
+        /*
+        
+        ArrayList<Piece> blackPieces = new ArrayList<Piece>();
+        ArrayList<Piece> whitePieces = new ArrayList<Piece>();
+        
+        
+        for (int x = 0
+        
+        */
 
     }
 
@@ -307,91 +320,6 @@ public class ChessBoard
         int y = whiteKing.getY();
 
 
-        // Check horizontal lines
-        // If we come across an enemy queen or rook first, the king is in check.
-        // If we come across a friendly piece first, the king is not in check (horizontally).
-        for (int i = 1; i <= x; i++) {
-            // See if there is a queen or rook in this row
-            if (board[x - i][y].getPieceType().equals("Q") || board[x - i][y].getPieceType().equals("R")) {
-                return true;
-            }
-            // // If there is a friendly piece, we stop looking in this direction.
-            if (board[x - i][y].getPlayer().equals("white")) {
-                break;
-            }
-            if (board[x - i][y].getPieceType().equals("P") || board[x - i][y].getPieceType().equals("B") ||
-                    board[x - i][y].getPieceType().equals("N") || board[x - i][y].getPieceType().equals("K")) {
-                break;
-            }
-        }
-            for (int i = 1; i <= 7 - x; i++) {
-                // See if there is a queen or rook in this row
-                if (board[x + i][y].getPieceType().equals("Q") || board[x + i][y].getPieceType().equals("R")) {
-                    return true;
-                }
-                // // If there is a friendly piece, we stop looking in this direction.
-                if (board[x + i][y].getPlayer().equals("white")) {
-                    break;
-
-                }
-                if (board[x + i][y].getPieceType().equals("P") || board[x + i][y].getPieceType().equals("B") ||
-                        board[x + i][y].getPieceType().equals("N") || board[x + i][y].getPieceType().equals("K")) {
-                    break;
-                }
-
-            }
-
-            // Check vertical lines
-        for (int i = 1; i <= y; i++) {
-            // See if there is a queen or rook in this column
-            if (board[x][y - i].getPieceType().equals("Q") || board[x][y - i].getPieceType().equals("R")) {
-                return true;
-            }
-            // If there is a friendly piece, we stop looking in this direction.
-            if (board[x][y - i].getPlayer().equals("white")) {
-                break;
-            }
-            if (board[x][y - i].getPieceType().equals("P") || board[x][y - i].getPieceType().equals("B") ||
-                    board[x][y - i].getPieceType().equals("N") || board[x][y - i].getPieceType().equals("K")) {
-                break;
-            }
-
-
-        }
-        for (int i = 1; i <= 7 - y; i++) {
-            // See if there is a queen or rook in this row
-            if (board[x][y + i].getPieceType().equals("Q") || board[x][y + i].getPieceType().equals("R")) {
-                return true;
-            }
-            // If there is a friendly piece, we stop looking in this direction.
-            if (board[x][y + i].getPlayer().equals("white")) {
-                break;
-            // If there is an enemy piece in this line that isn't a queen or rook, we can stop looking in this direction.
-            }
-            if (board[x][y + i].getPieceType().equals("P") || board[x][y + i].getPieceType().equals("B") ||
-                    board[x][y + i].getPieceType().equals("N") || board[x][y + i].getPieceType().equals("K")) {
-                break;
-            }
-
-        }
-
         return false;
     }
-
-  
-    /*
-    public boolean isCheck() {
-    Current idea for looking for check (best explained by example)
-    Check 1. "Are there any enemy rooks in play?"
-    If yes, 
-    Check 2. "Are any rooks in the same file as the king?"
-    If yes,
-    Check 3. "Are there any pieces in between the king and rook?"
-  
-    This would apply to queen/bishop
-  
-    Knight is similar in that you check if there are any first, then if there are knights you can see if it can legally get to the king.
-    If it can, that's check.
-    }
-    */
 }
