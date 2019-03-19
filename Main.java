@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        StartScreen begin = new StartScreen();
         launch(); // run from commandline for better visual
     }
 
