@@ -45,20 +45,9 @@ public class ChessBoard
         System.out.println("New game beginning!");
         fillBoard();
         presentBoard();
-        
-        // Create the list of pieces to each team
-        ArrayList<Piece> blackPieces = new ArrayList<Piece>();
-        ArrayList<Piece> whitePieces = new ArrayList<Piece>();
+        storePieces();
         
         
-        for (int x = 0; x < 8; x++) {
-            blackPieces.add(board[x][0]);
-            blackPieces.add(board[x][1]);
-            
-            whitePieces.add(board[x][6]);
-            whitePieces.add(board[x][7]);
-            
-        }
         
         
     }
@@ -118,6 +107,24 @@ public class ChessBoard
         }
         
         
+    }
+    
+    public void storePieces() {
+        // Create the list of pieces to each team
+        ArrayList<Piece> blackPieces = new ArrayList<Piece>();
+        ArrayList<Piece> whitePieces = new ArrayList<Piece>();
+        
+        
+        for (int x = 0; x < 8; x++) {
+            blackPieces.add(board[x][0]);
+            blackPieces.add(board[x][1]);
+            
+            whitePieces.add(board[x][6]);
+            whitePieces.add(board[x][7]);
+            
+        }
+    
+    
     }
     
 
@@ -327,6 +334,7 @@ public class ChessBoard
     public boolean whiteKingInCheck(Piece whiteKing) {
         int x = whiteKing.getX();
         int y = whiteKing.getY();
+        
         
         
         
