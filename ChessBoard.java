@@ -107,7 +107,13 @@ public class ChessBoard
         ArrayList<Piece> whitePieces = new ArrayList<Piece>();
         
         
-        for (int x = 0
+        for (int x = 0; x < 8; x++) {
+            blackPieces.add(board[x][0]);
+            blackPieces.add(board[x][1]);
+            
+            whitePieces.add(board[x][7]);
+            whitePieces.add(board[x][6]);
+        }
         
         */
 
