@@ -1,5 +1,10 @@
 package projectoverlord.ProjectOverlord;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
 public class Bishop extends Piece
 {
     public Bishop(ChessBoard board, String player, String piece, int x, int y)
@@ -18,4 +23,19 @@ public class Bishop extends Piece
         //to be a diagonal line the change in x must be +/- the change in y
         return (deltaX == deltaY || deltaX == -deltaY) && (deltaX != 0);
     }
+    
+    public BufferedImage getPieceIcon()
+    {
+        BufferedImage bishopIcon = null;
+        try
+        {
+            bishopIcon = ImageIO.read(new File(chessIconFilePath + "BishopIcon.Png"));
+        }
+        catch (IOException ex)
+        {
+            System.out.println("Didnt get the file ya bum");
+        }
+        return bishopIcon;
+    }
 }
+
