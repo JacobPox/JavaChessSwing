@@ -1,5 +1,10 @@
 package projectoverlord.ProjectOverlord;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
 public class Knight extends Piece
 {   
     public Knight(ChessBoard board, String player, String piece, int x, int y)
@@ -24,4 +29,21 @@ public class Knight extends Piece
     {
         return true;
     }
+    
+    @Override
+    public BufferedImage getPieceIcon()
+    {
+        BufferedImage knightIcon = null;
+        try
+        {
+            knightIcon = ImageIO.read(new File(chessIconFilePath + "KnightIcon.Png"));
+        }
+        catch (IOException ex)
+        {
+            System.out.println("Didnt get the file ya bum");
+        }
+        
+        return knightIcon;
+    }
+        
 }
