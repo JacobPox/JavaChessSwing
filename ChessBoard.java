@@ -1,57 +1,52 @@
-import java.util.*;
+package projectoverlord.ProjectOverlord;
 
-public class ChessBoard
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.image.BufferedImage;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class ChessBoard extends JPanel// implements ActionListener
 {
-    /*
-    The board stores pieces in a 2D array, ranging from [0][0] to [7][7]
-    These positions correspond to the chess board positions A8 to H1
-    Below is a reference for each index and its corresponding position.
-    
-    First index is x coordinate (A-H), second index is y coordinate (starting from the top to bottom, 8-1).
-    board[0][] --> 1st row
-    board[1][] --> 2nd row
-    board[2][] --> 3rd row
-    board[3][] --> 4th row
-    board[4][] --> 5th row
-    board[5][] --> 6th row
-    board[6][] --> 7th row
-    board[7][] --> 8th row
-    
-    board[][0] --> A column
-    board[][1] --> B column
-    board[][2] --> C column
-    board[][3] --> D column
-    board[][4] --> E column
-    board[][5] --> F column
-    board[][6] --> G column
-    board[][7] --> H column
-    
-    Example:
-    
-        White's King starts on board[4][7]
-        (4 to the right, 7 down)
-    
-        Black's Queen starts on board[3][0]
-        (3 to the right, 0 down)
-    */
-
     Piece[][] board;
-    ArrayList<Piece> blackPieces = new ArrayList<Piece>();
-    ArrayList<Piece> whitePieces = new ArrayList<Piece>();
+    private final JFrame frame;
+    private final int iconWidth;
+    private final int tileSideLength;
+    private final int WIDTH;
+    private final int HEIGHT;
+    private JButton button;
+    private JTextField keyboard;
+    
     
     public ChessBoard()
     {
+        super();
+        
         board = new Piece[8][8];
+        frame = new JFrame("Chess");
+        iconWidth = 27;
+        tileSideLength = iconWidth * 2;
+        WIDTH = iconWidth * 16;
+        HEIGHT = iconWidth * 16;
         
-        
-        System.out.println("New game beginning!");
+        setup();
         fillBoard();
-        presentBoard();
-        storePieces();
+    }
+    
+    public void setup()
+    {
+        frame.add(this);
+        //frame.setResizable(false);
+        //+16 and +39 keep the board perfectly in frame. +150 adds room for input
+        frame.setSize(WIDTH + 16 + 150, HEIGHT + 39); 
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
         
-        
-        
-        
+        FlowLayout l = new FlowLayout();
     }
     
     public void fillBoard()
@@ -75,31 +70,30 @@ public class ChessBoard
         String team2 = "white";
 
         // Rooks
-        board [0][0] = new Rook(this, team1, "R", 0, 0);
-        board [7][0] = new Rook(this, team1, "R", 7, 0);
-        board [0][7] = new Rook(this, team2, "r", 0, 7);
-        board [7][7] = new Rook(this, team2, "r", 7, 7);
+        board[0][0] = new Rook(this, team1, "R", 0, 0);
+        board[7][0] = new Rook(this, team1, "R", 7, 0);
+        board[0][7] = new Rook(this, team2, "r", 0, 7);
+        board[7][7] = new Rook(this, team2, "r", 7, 7);
 
         // Knights
-        board [1][0] = new Knight(this, team1, "N", 1, 0);
-        board [6][0] = new Knight(this, team1, "N", 6, 0);
-        board [1][7] = new Knight(this, team2, "n", 1, 7);
-        board [6][7] = new Knight(this, team2, "n", 6, 7);
+        board[1][0] = new Knight(this, team1, "N", 1, 0);
+        board[6][0] = new Knight(this, team1, "N", 6, 0);
+        board[1][7] = new Knight(this, team2, "n", 1, 7);
+        board[6][7] = new Knight(this, team2, "n", 6, 7);
 
         //Bishops
-        board [2][0] = new Bishop(this, team1, "B", 2, 0);
-        board [5][0] = new Bishop(this, team1, "B", 5, 0);
-        board [2][7] = new Bishop(this, team2, "b", 2, 7);
-        board [5][7] = new Bishop(this, team2, "b", 5, 7);
+        board[2][0] = new Bishop(this, team1, "B", 2, 0);
+        board[5][0] = new Bishop(this, team1, "B", 5, 0);
+        board[2][7] = new Bishop(this, team2, "b", 2, 7);
+        board[5][7] = new Bishop(this, team2, "b", 5, 7);
 
         //Queens
-        board [3][0] = new Queen(this, team1, "Q", 3, 0);
-        board [3][7] = new Queen(this, team2, "q", 3, 7);
+        board[3][0] = new Queen(this, team1, "Q", 3, 0);
+        board[3][7] = new Queen(this, team2, "q", 3, 7);
 
         //Kings
-        board [4][0] = new King(this, team1, "K", 4, 0);
-        board [4][7] = new King(this, team2, "k", 4, 7);
-
+        board[4][0] = new King(this, team1, "K", 4, 0);
+        board[4][7] = new King(this, team2, "k", 4, 7);
 
         //Pawns
         for (int x = 0; x < 8; x++)
@@ -107,46 +101,87 @@ public class ChessBoard
             board[x][1] = new Pawn(this, team1, "P", x, 1);
             board[x][6] = new Pawn(this, team2, "p", x, 6);
         }
-        
-        
     }
-    
-    public void storePieces() {
-        
-        for (int x = 0; x < 8; x++) {
-            blackPieces.add(board[x][0]);
-            blackPieces.add(board[x][1]);
-            
-            whitePieces.add(board[x][6]);
-            whitePieces.add(board[x][7]);
-            
-        }
-    
-    
-    }
-    
 
-
-    public void presentBoard()
+    
+    @Override
+    public void paintComponent(Graphics g)
     {
-        //side of the board numbers
-        int[] nums = {8, 7, 6, 5, 4, 3, 2, 1};
+        //drawing board and pieces on top of the board
+        super.paintComponent(g);
         
-        //Prints board
-        System.out.println("  ---------------------------------");
-        for (int y = 0; y < 8; y++)
+        presentBoard(g);
+        drawPieces(g);
+        
+    }
+    
+    
+    //takes in a board (x, y) and returns the location on the screen as a Point
+    public Point getScreenLocation(int x, int y)
+    {
+        //starting at the offset that lands pieces in the center of a tile
+        int screenX = tileSideLength/4 + x * tileSideLength;
+        int screenY = tileSideLength/4 + y * tileSideLength;
+        
+        return new Point(screenX, screenY);
+    }
+    
+    /*
+    goes through the board[x][y] array and send the pair(x, y)
+    to getScreenLocation() which returns the position to draw
+    the piece at.
+    */
+    public void drawPieces(Graphics g)
+    {
+        Point screenLocation;
+        for(int j = 0; j <= 7; j++)
         {
-            System.out.print(nums[y] + " | ");
-            for (int x = 0; x < 8; x++)
+            for(int i = 0; i <= 7; i++)
             {
-                System.out.print(board[x][y].getPieceType() + " | ");
+                BufferedImage icon = board[i][j].getPieceIcon();
+                screenLocation = getScreenLocation(i, j);
+                g.drawImage(icon, (int)screenLocation.getX(), (int)screenLocation.getY(), this); 
             }
-            System.out.println();
+        }
+    }
+    
+    public void presentBoard(Graphics g)
+    {
+        boolean colorFlag = true;
+        
+        //top left corner locations of tiles being printed
+        int x = 0;
+        int y = 0;
+        
+        //moving down the eight rows
+        for(int j = 0; j < 8; j++)
+        {
+            //starting at the left
+            x=0;
+            
+            //switching the tileColor
+            colorFlag = !colorFlag;
+            
+            //printing one element of each column left to right
+            for(int i = 0; i < 8; i++)
+            {
+                //setting tile as white or black
+                if(colorFlag)
+                    g.setColor(Color.LIGHT_GRAY);
+                else
+                    g.setColor(Color.GRAY);
+                
+                g.fillRect(x, y, WIDTH/8, HEIGHT/8);
+                colorFlag = !colorFlag;
+                
+                //moving the rect's top left to the right by the length of a tile
+                x += tileSideLength;
+            }
+            //moving the top left pixel of the next tile down by the length of a tile
+            y += tileSideLength;
         }
         
-        //bottom of board letters
-        System.out.println("  ---------------------------------");
-        System.out.println("    a   b   c   d   e   f   g   h\n\n");
+        drawPieces(g);
     }
   
     public String playerAt(int x, int y)
@@ -307,7 +342,7 @@ public class ChessBoard
             }
         }
       
-        System.out.println("Invalid move.");
+        System.out.println("woah nelly, path clear didnt return a real answer");
         return false;
     }
     
@@ -328,6 +363,9 @@ public class ChessBoard
         //Checks to see if the position is occupied by a piece. If it isn't, return true (it is empty).
         return board[x][y].getPieceType().equals(" ");
     }
+    
+    
+}
 
     public boolean whiteKingInCheck(Piece whiteKing) {
         int x = whiteKing.getX();
