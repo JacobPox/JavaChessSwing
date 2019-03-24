@@ -1,19 +1,10 @@
-/*
-Chess Game created by Jacob and Nick
-
-TODO:
-- Improve check features
-- Add en passant
-- Add castling
- */
-
+package projectoverlord.ProjectOverlord;
 
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
-        StartScreen begin = new StartScreen();
-        launch(); // run from commandline for better visual
+    public static void main(String[] args){
+        launch();
     }
 
     public static void launch() {
@@ -48,14 +39,6 @@ public class Main {
 
         while (whiteKing.getInPlay() && blackKing.getInPlay()) //really will be while either king is not in check mate or taken
         {
-            // REMOVE THIS LATER, JUST FOR DEBUGGING PURPOSES 
-            //////////////////////////////////////////////////
-            
-            System.out.println("White king in check: " + myBoard.whiteKingInCheck(whiteKing));
-            System.out.println("Black king in check: " + myBoard.blackKingInCheck(blackKing));
-            
-            ///////////////////////////////////////////////////
-            ///////////////////////////////////////////////////
             if (team1Going)
                 System.out.println("White's turn.");
             else
@@ -196,7 +179,7 @@ public class Main {
                         (myBoard.board[xi][yi].getPlayer().equals("black") && !team1Going)
                 ) {
                     myBoard.board[xi][yi].updatePos(xf, yf);
-                    myBoard.presentBoard();
+                    myBoard.repaint();
                     }
 
                     if (myBoard.isEmpty(xi, yi)) {
@@ -244,7 +227,7 @@ public class Main {
                                     } break;
 
                             }
-                            myBoard.presentBoard();
+                            myBoard.repaint();
                         }
                         //Switch which team is going white -> black -> white -> black etc
                         team1Going = !team1Going;
