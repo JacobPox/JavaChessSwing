@@ -1,11 +1,24 @@
 package projectoverlord.ProjectOverlord;
 
+import java.awt.image.BufferedImage;
+
+/*
+Right now this file has a lot of methods that dont exist yet in ChessBoard
+and the x and y need to be changed to row and col and swapped in order
+eventually like matrix notation to work with the board (or swap the board to
+(x, y) pairs if we decide that that's an easier system to work with) If we keep
+matrix notation that will be important to keep in mind when working with the
+specific pieces
+*/
+
 public class Piece // piece needs to be sent the board!!!!
 {
     protected static ChessBoard board;  //every piece shares the same instance of board
     protected boolean inPlay;      //in Play is only false when a piece gets taken
     protected String player;
-    protected String pieceType; 
+    protected String pieceType;
+    protected BufferedImage pieceIcon;
+    protected String chessIconFilePath;
     
     //current x and y positions (indeces of board[x][y]) on the board
     protected int curX;
@@ -23,6 +36,7 @@ public class Piece // piece needs to be sent the board!!!!
         this.inPlay = true; 
         this.curX = x;
         this.curY = y;
+        this.chessIconFilePath = "C:\\Users\\ncala\\Pictures\\ChessIcons\\";
     }
     
     //Either moves piece to (x, y) or tells user to pick another location
@@ -162,6 +176,11 @@ public class Piece // piece needs to be sent the board!!!!
     public boolean getInPlay()
     {
         return inPlay;
+    }
+    
+    public BufferedImage getPieceIcon()
+    {
+        return this.pieceIcon;
     }
 
     //toString
