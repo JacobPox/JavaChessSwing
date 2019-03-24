@@ -1,5 +1,7 @@
 package projectoverlord.ProjectOverlord;
 
+import java.awt.image.BufferedImage;
+
 public class Empty extends Piece {
 
     public Empty(ChessBoard board, String player, String piece, int x, int y)
@@ -9,5 +11,10 @@ public class Empty extends Piece {
          */
 
         super(board, "neutral", " ", x, y);
+    }
+    
+    public BufferedImage getPieceIcon()
+    {
+        return null;
     }
 }
