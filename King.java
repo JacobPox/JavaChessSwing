@@ -1,4 +1,7 @@
-import java.lang.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class King extends Piece
 {   
@@ -21,4 +24,25 @@ public class King extends Piece
         inPlay = false;
     }
     
+    @Override
+    public BufferedImage getPieceIcon()
+    {
+        BufferedImage kingIcon = null;
+        try
+        {
+            if (player.equals("black")) {
+                kingIcon = ImageIO.read(new File(blackChessIconFilePath + "KingIcon.Png"));
+            } else if (player.equals("white")) {
+                kingIcon = ImageIO.read(new File(whiteChessIconFilePath + "KingIcon.Png"));
+            }
+        }
+        catch (IOException ex)
+        {
+            System.out.println("Didnt get the file ya bum");
+        }
+        
+        return kingIcon;
+    }
+    
 }
+
