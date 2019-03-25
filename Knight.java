@@ -1,10 +1,3 @@
-package projectoverlord.ProjectOverlord;
-
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-
 public class Knight extends Piece
 {   
     public Knight(ChessBoard board, String player, String piece, int x, int y)
@@ -17,10 +10,24 @@ public class Knight extends Piece
     public boolean moveLegal(int finX, int finY)
     {
         //eight legal moves
-        int deltaX = finX - curX;
-        int deltaY = finY - curY;
+        if((finX == this.curX+1) && (finY == this.curY + 2))
+            return true;
+        if((finX == this.curX+1) && (finY == this.curY - 2))
+            return true;
+        if((finX == this.curX-1) && (finY == this.curY + 2))
+            return true;
+        if((finX == this.curX-1) && (finY == this.curY - 2))
+            return true;
         
-        return (Math.abs(deltaX) == 2 && Math.abs(deltaY) == 1) || (Math.abs(deltaY) == 2 && Math.abs(deltaX) == 1);
+        if((finY == this.curY+1) && (finX == this.curX + 2))
+            return true;
+        if((finY == this.curY+1) && (finX == this.curX - 2))
+            return true;
+        if((finY == this.curY-1) && (finX == this.curX + 2))
+            return true;
+        if((finY == this.curY-1) && (finX == this.curX - 2))
+            return true;
+        return false;
     }
     
     //knights dont care if the path is clear
@@ -29,21 +36,4 @@ public class Knight extends Piece
     {
         return true;
     }
-    
-    @Override
-    public BufferedImage getPieceIcon()
-    {
-        BufferedImage knightIcon = null;
-        try
-        {
-            knightIcon = ImageIO.read(new File(chessIconFilePath + "KnightIcon.Png"));
-        }
-        catch (IOException ex)
-        {
-            System.out.println("Didnt get the file ya bum");
-        }
-        
-        return knightIcon;
-    }
-        
 }

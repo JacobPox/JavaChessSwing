@@ -1,10 +1,52 @@
-package projectoverlord.ProjectOverlord;
+/*
+Chess Game created by Jacob and Nick
+
+TODO:
+- Add check and check mate features
+- Add en passant
+- Add castling
+
+Comments by Jacob:
+Currently, the game works pretty well. I'm quite happy with the progress we've made and this has been a fun project.
+As of right now, my biggest concern is adding in a check feature in the game. There are a lot of ways to go about it,
+but my current thinking is to go through a list of things to check off to see if there is a check in the game.
+
+The order of these checks:
+ - Are there any enemy rooks? If yes...
+    - Check their row and column, do either match the king? If yes...
+        - Are there any pieces in between (path clear)? If no...
+            - Check
+ - Are there any enemy bishops? If yes...
+    - Are they an equal x and y distance away? If yes...
+        - Are there any pieces in between (path clear)? If no...
+            - Check
+- Are there any enemy knights? If yes...
+    - Are they 2 x positions and 1 y position or 1 x position and 2 y positions away? If yes...
+        - Check
+- Are there any enemy queens? If yes...
+    - Do a rook check then a bishop check.
+
+- Are there any enemy pawns? If yes...
+    - Are they 1 x and 1 y away? If yes...
+        - Are they oriented correctly (Facing the king, not behind him) If yes...
+            - Check
+
+This is a bit of an exhaustive list and there is probably a better way of doing it. But this is all I can think of.
+Not only do we need to know if a check is made after a move is given, we have to prevent a player from putting
+themselves in check. This could be remedied by going through the above checks after a requested move is made, then
+if it is illegal we don't go through the moves. I'm thinking that chessboard could handle this part and updatePos
+will have an additional requirement to move (notCheck) or something like that.
+
+Pawn promotion should be simpler. A pawn can become a queen, knight, bishop, or rook when it reaches the opposite end
+(row 1 or 8). We can prompt the player what piece they want to choose.
+ */
+
 
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args){
-        launch();
+    public static void main(String[] args) {
+        launch(); // run from commandline for better visual
     }
 
     public static void launch() {
@@ -39,6 +81,7 @@ public class Main {
 
         while (whiteKing.getInPlay() && blackKing.getInPlay()) //really will be while either king is not in check mate or taken
         {
+            System.out.printf("White king in check: %s\n", myBoard.whiteKingInCheck(whiteKing));
             if (team1Going)
                 System.out.println("White's turn.");
             else
@@ -179,7 +222,7 @@ public class Main {
                         (myBoard.board[xi][yi].getPlayer().equals("black") && !team1Going)
                 ) {
                     myBoard.board[xi][yi].updatePos(xf, yf);
-                    myBoard.repaint();
+                    myBoard.presentBoard();
                     }
 
                     if (myBoard.isEmpty(xi, yi)) {
@@ -227,7 +270,7 @@ public class Main {
                                     } break;
 
                             }
-                            myBoard.repaint();
+                            myBoard.presentBoard();
                         }
                         //Switch which team is going white -> black -> white -> black etc
                         team1Going = !team1Going;

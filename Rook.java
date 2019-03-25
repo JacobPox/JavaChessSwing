@@ -1,10 +1,3 @@
-package projectoverlord.ProjectOverlord;
-
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-
 public class Rook extends Piece
 {   
     public Rook(ChessBoard board, String player, String piece, int x, int y)
@@ -26,20 +19,4 @@ public class Rook extends Piece
         //Default to false
         return false;
     }
-    
-    @Override
-    public BufferedImage getPieceIcon()
-    {
-        BufferedImage rookIcon = null;
-        try
-        {
-            rookIcon = ImageIO.read(new File(chessIconFilePath + "RookIcon.Png"));
-        }
-        catch (IOException ex)
-        {
-            System.out.println("Didnt get the file ya bum");
-        }
-        return rookIcon;
-    }
 }
-

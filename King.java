@@ -1,9 +1,4 @@
-package projectoverlord.ProjectOverlord;
-
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+import java.lang.*;
 
 public class King extends Piece
 {   
@@ -26,21 +21,4 @@ public class King extends Piece
         inPlay = false;
     }
     
-    @Override
-    public BufferedImage getPieceIcon()
-    {
-        BufferedImage kingIcon = null;
-        try
-        {
-            kingIcon = ImageIO.read(new File(chessIconFilePath + "KingIcon.Png"));
-        }
-        catch (IOException ex)
-        {
-            System.out.println("Didnt get the file ya bum");
-        }
-        
-        return kingIcon;
-    }
-    
 }
-
