@@ -1,3 +1,5 @@
+package projectoverlord2;
+
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -36,6 +38,7 @@ public class ChessBoard extends JPanel// implements ActionListener
         
         setup();
         fillBoard();
+        storePieces();
     }
     
     public void setup()
@@ -168,9 +171,9 @@ public class ChessBoard extends JPanel// implements ActionListener
             {
                 //setting tile as white or black
                 if(colorFlag)
-                    g.setColor(Color.LIGHT_GRAY);
-                else
                     g.setColor(Color.GRAY);
+                else
+                    g.setColor(Color.LIGHT_GRAY);
                 
                 g.fillRect(x, y, WIDTH/8, HEIGHT/8);
                 colorFlag = !colorFlag;
@@ -183,6 +186,18 @@ public class ChessBoard extends JPanel// implements ActionListener
         }
         
         drawPieces(g);
+    }
+    
+    public void storePieces() {
+
+        for (int x = 0; x < 8; x++) {
+            blackPieces.add(board[x][0]);
+            blackPieces.add(board[x][1]);
+
+            whitePieces.add(board[x][6]);
+            whitePieces.add(board[x][7]);
+
+        }
     }
   
     public String playerAt(int x, int y)
@@ -393,6 +408,30 @@ public class ChessBoard extends JPanel// implements ActionListener
       
         return false;
 
+    }
+    
+    public boolean underAttackByWhite(int x, int y) {
+        for (Piece p : whitePieces) {
+            if (p.moveLegal(x, y) && p.getInPlay() && p.pathClear(x, y)) {
+                return true;
+            }
+        }
+      
+        return false;
+    }
+    
+    public boolean underAttackByBlack(int x, int y) {
+        for (Piece p : blackPieces) {
+            if (p.moveLegal(x, y) && p.getInPlay() && p.pathClear(x, y)) {
+                return true;
+            }
+        }
+      
+        return false;
+    }
+    
+    public void testMethod() {
+    System.out.println("Test successful");
     }
 }
 
