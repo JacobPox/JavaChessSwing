@@ -1,7 +1,10 @@
+package projectoverlord2;
+
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         launch();
     }
 
@@ -37,21 +40,21 @@ public class Main {
 
         while (whiteKing.getInPlay() && blackKing.getInPlay()) //really will be while either king is not in check mate or taken
         {
-            if (team1Going)
+            if (team1Going) {
                 System.out.println("White's turn.");
-            else
+            } else {
                 System.out.println("Black's turn.");
+            }
 
             System.out.print("Enter starting and ending position for your move (Example: e2e4): ");
             try {
                 input = keyboard.nextLine();
 
                 // Check to make sure that the format follows letter, number, letter, number (Example: e2e4)
-                if (!(allowedLetters.contains(Character.toString(input.charAt(0))) &&
-                        allowedNums.contains(Character.toString(input.charAt(1))) &&
-                        allowedLetters.contains(Character.toString(input.charAt(2))) &&
-                        allowedNums.contains(Character.toString(input.charAt(3))))
-                ) {
+                if (!(allowedLetters.contains(Character.toString(input.charAt(0)))
+                        && allowedNums.contains(Character.toString(input.charAt(1)))
+                        && allowedLetters.contains(Character.toString(input.charAt(2)))
+                        && allowedNums.contains(Character.toString(input.charAt(3))))) {
                     System.out.println("Invalid move, did you format your move correctly? Example of correct move: g1f3");
                     continue;
                 }
@@ -173,64 +176,72 @@ public class Main {
             }
             try {
                 //checking if the player moves their own piece------------------------------------------
-                if ((myBoard.board[xi][yi].getPlayer().equals("white") && team1Going) ||
-                        (myBoard.board[xi][yi].getPlayer().equals("black") && !team1Going)
-                ) {
+                if ((myBoard.board[xi][yi].getPlayer().equals("white") && team1Going)
+                        || (myBoard.board[xi][yi].getPlayer().equals("black") && !team1Going)) {
                     myBoard.board[xi][yi].updatePos(xf, yf);
                     myBoard.repaint();
-                    }
+                }
+                
+                if (myBoard.whiteKingInCheck(whiteKing) || myBoard.blackKingInCheck(blackKing)) {
+                System.out.println("Check!");
+                }
 
-                    if (myBoard.isEmpty(xi, yi)) {
+                
 
-                        // Check to see if pawn moved onto last file, and thus can be promoted.
-                        if ((yf == 0 || yf == 7) && myBoard.board[xf][yf].pieceType.toLowerCase().equals("p")) {
+                if (myBoard.isEmpty(xi, yi)) {
 
-                            // Keep asking until they give a Q, R, B, or N (case doesn't matter)
-                            while (!promotionTypes.contains(promotion)) {
-                                System.out.println("Pawn promotion. Choose which piece to turn your pawn into.");
-                                System.out.println("Q for queen, R for rook, B for bishop, or N for knight.");
-                                Scanner promotionChoice = new Scanner(System.in);
-                                promotion = promotionChoice.nextLine().toLowerCase();
-                                // Prevent user from giving more than one character (like if they said qrbn, it will just take q as the intented promotion.
-                                if (promotion.length() != 1) {
-                                    promotion = String.valueOf(promotion.charAt(0));
-                                }
+                    // Check to see if pawn moved onto last file, and thus can be promoted.
+                    if ((yf == 0 || yf == 7) && myBoard.board[xf][yf].pieceType.toLowerCase().equals("p")) {
+
+                        // Keep asking until they give a Q, R, B, or N (case doesn't matter)
+                        while (!promotionTypes.contains(promotion)) {
+                            System.out.println("Pawn promotion. Choose which piece to turn your pawn into.");
+                            System.out.println("Q for queen, R for rook, B for bishop, or N for knight.");
+                            Scanner promotionChoice = new Scanner(System.in);
+                            promotion = promotionChoice.nextLine().toLowerCase();
+                            // Prevent user from giving more than one character (like if they said qrbn, it will just take q as the intented promotion.
+                            if (promotion.length() != 1) {
+                                promotion = String.valueOf(promotion.charAt(0));
                             }
-
-                            // List of options which create a new object onto that position, replacing it.
-                            switch (promotion) {
-                                case "q":
-                                    if (yf == 0) {
-                                        myBoard.setThisPiece(new Queen(myBoard, "white", "q", xf, yf));
-                                    } else {
-                                        myBoard.setThisPiece(new Queen(myBoard, "black", "Q", xf, yf));
-                                    } break;
-                                case "r":
-                                    if (yf == 0) {
-                                        myBoard.setThisPiece(new Rook(myBoard, "white", "r", xf, yf));
-                                    } else {
-                                        myBoard.setThisPiece(new Rook(myBoard, "black", "R", xf, yf));
-                                    } break;
-                                case "b":
-                                    if (yf == 0) {
-                                        myBoard.setThisPiece(new Bishop(myBoard, "white", "b", xf, yf));
-                                    } else {
-                                        myBoard.setThisPiece(new Bishop(myBoard, "black", "B", xf, yf));
-                                    } break;
-                                case "n":
-                                    if (yf == 0) {
-                                        myBoard.setThisPiece(new Knight(myBoard, "white", "n", xf, yf));
-                                    } else {
-                                        myBoard.setThisPiece(new Knight(myBoard, "black", "N", xf, yf));
-                                    } break;
-
-                            }
-                            myBoard.repaint();
                         }
-                        //Switch which team is going white -> black -> white -> black etc
-                        team1Going = !team1Going;
+
+                        // List of options which create a new object onto that position, replacing it.
+                        switch (promotion) {
+                            case "q":
+                                if (yf == 0) {
+                                    myBoard.setThisPiece(new Queen(myBoard, "white", "q", xf, yf));
+                                } else {
+                                    myBoard.setThisPiece(new Queen(myBoard, "black", "Q", xf, yf));
+                                }
+                                break;
+                            case "r":
+                                if (yf == 0) {
+                                    myBoard.setThisPiece(new Rook(myBoard, "white", "r", xf, yf));
+                                } else {
+                                    myBoard.setThisPiece(new Rook(myBoard, "black", "R", xf, yf));
+                                }
+                                break;
+                            case "b":
+                                if (yf == 0) {
+                                    myBoard.setThisPiece(new Bishop(myBoard, "white", "b", xf, yf));
+                                } else {
+                                    myBoard.setThisPiece(new Bishop(myBoard, "black", "B", xf, yf));
+                                }
+                                break;
+                            case "n":
+                                if (yf == 0) {
+                                    myBoard.setThisPiece(new Knight(myBoard, "white", "n", xf, yf));
+                                } else {
+                                    myBoard.setThisPiece(new Knight(myBoard, "black", "N", xf, yf));
+                                }
+                                break;
+
+                        }
+                        myBoard.repaint();
                     }
-                 else {
+                    //Switch which team is going white -> black -> white -> black etc
+                    team1Going = !team1Going;
+                } else {
                     System.out.println("You must move your own piece");
                     continue;
                 }
@@ -242,9 +253,11 @@ public class Main {
         }
 
         System.out.println("Game Over!");
-        if (blackKing.getInPlay())
+        if (blackKing.getInPlay()) {
             System.out.println("Black Wins!");
-        if (whiteKing.getInPlay())
+        }
+        if (whiteKing.getInPlay()) {
             System.out.println("White Wins!");
+        }
     }
 }
