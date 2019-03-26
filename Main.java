@@ -180,6 +180,9 @@ public class Main {
                         || (myBoard.board[xi][yi].getPlayer().equals("black") && !team1Going)) {
                     myBoard.board[xi][yi].updatePos(xf, yf);
                     myBoard.repaint();
+                } else {
+                System.out.println("No piece here to move.");
+                continue;
                 }
                 
                 if (myBoard.whiteKingInCheck(whiteKing) || myBoard.blackKingInCheck(blackKing)) {
