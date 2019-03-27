@@ -23,8 +23,6 @@ public class ChessBoard extends JPanel implements MouseListener
     private JTextField keyboard;
     private Point eventBoardLocationI;
     private Point eventBoardLocationF;
-    boolean tileILit;
-    boolean tileFLit;
     
     
     public ChessBoard()
@@ -38,15 +36,12 @@ public class ChessBoard extends JPanel implements MouseListener
         WIDTH = iconWidth * 16;
         HEIGHT = iconWidth * 16;
         eventBoardLocationI = null;
-        eventBoardLocationF = null;
-        tileILit = false;
-        tileFLit = false;
+        eventBoardLocationF = new Point(-1, -1);
         
         setup();
         fillBoard();
         
         addMouseListener(this);
-        addKeyListener(this);
     }
     
     public void setup()
@@ -56,8 +51,6 @@ public class ChessBoard extends JPanel implements MouseListener
         frame.setSize(WIDTH + 16, HEIGHT + 39); 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        
-        
     }
     
     public void fillBoard()
@@ -179,9 +172,9 @@ public class ChessBoard extends JPanel implements MouseListener
             {
                 //setting tile as white or black
                 if(colorFlag)
-                    g.setColor(Color.GRAY);
+                    g.setColor(Color.GRAY); //gray
                 else
-                    g.setColor(Color.LIGHT_GRAY);
+                    g.setColor(Color.LIGHT_GRAY); //light grqy
                 
                 g.fillRect(x, y, tileSideLength, tileSideLength);
                 colorFlag = !colorFlag;
@@ -195,7 +188,7 @@ public class ChessBoard extends JPanel implements MouseListener
         drawPieces(g);
     }
     
-    public void lightTile(Point tile)
+    public void lightTile(Point tile, Color c)
     {
         int x = 0;
         int y = 0;
@@ -212,7 +205,7 @@ public class ChessBoard extends JPanel implements MouseListener
             {
                 if(i == tile.getX() && j == tile.getY())
                 {
-                    g.setColor(Color.WHITE);
+                    g.setColor(c);
                     g.drawRect(x, y, tileSideLength, tileSideLength);
                     break;
                 }
@@ -425,62 +418,33 @@ public class ChessBoard extends JPanel implements MouseListener
         return board[x][y].getPieceType().equals(" ");
     }
     
-    public void run()
+    @Override
+    public void mouseClicked(MouseEvent e)
     {
-        Piece whiteKing = board[4][7];
-        Piece blackKing = board[4][0];
-        Point screenLocation;
-        Point boardLocation;
-        boolean whiteTeamGoing = true;
+        Point eventBoardLocation = getTileAtScreenLocation(e.getPoint());
+        Graphics g = getGraphics();
         
-        
-        while(whiteKing.getInPlay() && blackKing.getInPlay())
+        if(eventBoardLocationF == null && eventBoardLocationI != null)
         {
-            
+            eventBoardLocationF = eventBoardLocation;
+            board[(int)eventBoardLocationI.getX()][(int)eventBoardLocationI.getY()].updatePos((int)eventBoardLocationF.getX(), (int)eventBoardLocationF.getY());
+            eventBoardLocationI = null;
+            presentBoard(g);
+            System.out.println("turn2");
+        }
+        
+        if(eventBoardLocationI == null && eventBoardLocationF != null)
+        {
+            eventBoardLocationI = eventBoardLocation;
+            lightTile(eventBoardLocationI, Color.WHITE);
+            eventBoardLocationF = null;
+            System.out.println("turn1");
         }
     }
-    
-    @Override
-    public void mouseClicked(MouseEvent e){ }
 
     
     @Override
-    public void mousePressed(MouseEvent e) {
-    Point eventBoardLocation = getTileAtScreenLocation(e.getPoint());
-        Graphics g = getGraphics();
-        
-        
-        
-        if(tileFLit && eventBoardLocation.equals(eventBoardLocationF))
-        {
-            System.out.println(board[(int)eventBoardLocationI.getX()][(int)eventBoardLocationI.getY()]);
-            board[(int)eventBoardLocationI.getX()][(int)eventBoardLocationI.getY()].updatePos((int)eventBoardLocationF.getX(), (int)eventBoardLocationF.getY());
-            eventBoardLocationI = null;
-            eventBoardLocationF = null;
-            tileILit = false;
-            tileFLit = false;
-            presentBoard(g);
-            
-        }
-        
-        
-        
-        if(tileILit && !tileFLit)
-        {
-            eventBoardLocationF = eventBoardLocation;
-            lightTile(eventBoardLocationF);
-            tileFLit = true;
-            board[(int)eventBoardLocationI.getX()][(int)eventBoardLocationI.getY()].updatePos((int)eventBoardLocationF.getX(), (int)eventBoardLocationF.getY());
-            
-        }
-        
-        if(!tileILit && !tileFLit)
-        {
-            eventBoardLocationI = eventBoardLocation;
-            lightTile(eventBoardLocationI);
-            tileILit = true;
-        }
-    }
+    public void mousePressed(MouseEvent e) { }
 
     @Override
     public void mouseReleased(MouseEvent e) { }
@@ -490,6 +454,4 @@ public class ChessBoard extends JPanel implements MouseListener
 
     @Override
     public void mouseExited(MouseEvent e) { }
-    
-    //Add key binding yo enter or space key to perform action
 }
