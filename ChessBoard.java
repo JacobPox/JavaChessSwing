@@ -1,21 +1,19 @@
-package projectoverlord2;
+package projectoverlord;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import java.util.*;
 
-public class ChessBoard extends JPanel// implements ActionListener
+public class ChessBoard extends JPanel implements MouseListener
 {
     Piece[][] board;
-    ArrayList<Piece> blackPieces = new ArrayList<Piece>();
-    ArrayList<Piece> whitePieces = new ArrayList<Piece>();
     private final JFrame frame;
     private final int iconWidth;
     private final int tileSideLength;
@@ -23,6 +21,10 @@ public class ChessBoard extends JPanel// implements ActionListener
     private final int HEIGHT;
     private JButton button;
     private JTextField keyboard;
+    private Point eventBoardLocationI;
+    private Point eventBoardLocationF;
+    boolean tileILit;
+    boolean tileFLit;
     
     
     public ChessBoard()
@@ -35,22 +37,27 @@ public class ChessBoard extends JPanel// implements ActionListener
         tileSideLength = iconWidth * 2;
         WIDTH = iconWidth * 16;
         HEIGHT = iconWidth * 16;
+        eventBoardLocationI = null;
+        eventBoardLocationF = null;
+        tileILit = false;
+        tileFLit = false;
         
         setup();
         fillBoard();
-        storePieces();
+        
+        addMouseListener(this);
+        addKeyListener(this);
     }
     
     public void setup()
     {
         frame.add(this);
-        //frame.setResizable(false);
-        //+16 and +39 keep the board perfectly in frame. +150 adds room for input
-        frame.setSize(WIDTH + 16 + 150, HEIGHT + 39); 
+        //+16 and +39 keep the board perfectly, i repeat perfectly, in frame.
+        frame.setSize(WIDTH + 16, HEIGHT + 39); 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         
-        FlowLayout l = new FlowLayout();
+        
     }
     
     public void fillBoard()
@@ -115,7 +122,6 @@ public class ChessBoard extends JPanel// implements ActionListener
         super.paintComponent(g);
         
         presentBoard(g);
-        drawPieces(g);
         
     }
     
@@ -137,6 +143,7 @@ public class ChessBoard extends JPanel// implements ActionListener
     */
     public void drawPieces(Graphics g)
     {
+        //Graphics g = getGraphics();
         Point screenLocation;
         for(int j = 0; j <= 7; j++)
         {
@@ -151,6 +158,7 @@ public class ChessBoard extends JPanel// implements ActionListener
     
     public void presentBoard(Graphics g)
     {
+        //Graphics g = getGraphics();
         boolean colorFlag = true;
         
         //top left corner locations of tiles being printed
@@ -175,7 +183,7 @@ public class ChessBoard extends JPanel// implements ActionListener
                 else
                     g.setColor(Color.LIGHT_GRAY);
                 
-                g.fillRect(x, y, WIDTH/8, HEIGHT/8);
+                g.fillRect(x, y, tileSideLength, tileSideLength);
                 colorFlag = !colorFlag;
                 
                 //moving the rect's top left to the right by the length of a tile
@@ -184,20 +192,58 @@ public class ChessBoard extends JPanel// implements ActionListener
             //moving the top left pixel of the next tile down by the length of a tile
             y += tileSideLength;
         }
-        
         drawPieces(g);
     }
     
-    public void storePieces() {
-
-        for (int x = 0; x < 8; x++) {
-            blackPieces.add(board[x][0]);
-            blackPieces.add(board[x][1]);
-
-            whitePieces.add(board[x][6]);
-            whitePieces.add(board[x][7]);
-
+    public void lightTile(Point tile)
+    {
+        int x = 0;
+        int y = 0;
+        
+        Graphics g = getGraphics();
+        
+        for(int j = 0; j < 8; j++)
+        {
+            //starting at the left
+            x=0;
+            
+            //printing one element of each column left to right
+            for(int i = 0; i < 8; i++)
+            {
+                if(i == tile.getX() && j == tile.getY())
+                {
+                    g.setColor(Color.WHITE);
+                    g.drawRect(x, y, tileSideLength, tileSideLength);
+                    break;
+                }
+                
+                x += tileSideLength;
+            }
+            y += tileSideLength;
         }
+    }
+    
+    /*
+    takes in a screenX and screenY and returns a Point that corresponds to the
+    tile you're on in board[x][y]
+    */
+    public Point getTileAtScreenLocation(Point screenLocation)
+    {
+        //initializing to -1 to catch errors
+        int screenX = (int)screenLocation.getX();
+        int screenY = (int)screenLocation.getY();
+        
+        int tileX = -1;
+        int tileY = -1;
+        
+        for(int i = 0; i < 8; i++)
+        {
+            if(0 < (screenX - tileSideLength * i) && (screenX - tileSideLength * i) < tileSideLength)
+                tileX = i;
+            if(0 < (screenY - tileSideLength * i) && (screenY - tileSideLength * i) < tileSideLength)
+                tileY = i;
+        }
+        return new Point(tileX, tileY);
     }
   
     public String playerAt(int x, int y)
@@ -358,7 +404,6 @@ public class ChessBoard extends JPanel// implements ActionListener
             }
         }
       
-        System.out.println("woah nelly, path clear didnt return a real answer");
         return false;
     }
     
@@ -380,58 +425,71 @@ public class ChessBoard extends JPanel// implements ActionListener
         return board[x][y].getPieceType().equals(" ");
     }
     
-
-
-    public boolean whiteKingInCheck(Piece whiteKing) {
-        int x = whiteKing.getX();
-        int y = whiteKing.getY();
+    public void run()
+    {
+        Piece whiteKing = board[4][7];
+        Piece blackKing = board[4][0];
+        Point screenLocation;
+        Point boardLocation;
+        boolean whiteTeamGoing = true;
         
-        for (Piece p : blackPieces) {
-            if (p.moveLegal(x, y) && p.getInPlay() && p.pathClear(x, y)) {
-                return true;
-            }
-        }
-      
-        return false;
-
-    }
-    
-    public boolean blackKingInCheck(Piece blackKing) {
-        int x = blackKing.getX();
-        int y = blackKing.getY();
         
-        for (Piece p : whitePieces) {
-            if (p.moveLegal(x, y) && p.getInPlay() && p.pathClear(x, y)) {
-                return true;
-            }
+        while(whiteKing.getInPlay() && blackKing.getInPlay())
+        {
+            
         }
-      
-        return false;
+    }
+    
+    @Override
+    public void mouseClicked(MouseEvent e){ }
 
-    }
     
-    public boolean underAttackByWhite(int x, int y) {
-        for (Piece p : whitePieces) {
-            if (p.moveLegal(x, y) && p.getInPlay() && p.pathClear(x, y)) {
-                return true;
-            }
+    @Override
+    public void mousePressed(MouseEvent e) {
+    Point eventBoardLocation = getTileAtScreenLocation(e.getPoint());
+        Graphics g = getGraphics();
+        
+        
+        
+        if(tileFLit && eventBoardLocation.equals(eventBoardLocationF))
+        {
+            System.out.println(board[(int)eventBoardLocationI.getX()][(int)eventBoardLocationI.getY()]);
+            board[(int)eventBoardLocationI.getX()][(int)eventBoardLocationI.getY()].updatePos((int)eventBoardLocationF.getX(), (int)eventBoardLocationF.getY());
+            eventBoardLocationI = null;
+            eventBoardLocationF = null;
+            tileILit = false;
+            tileFLit = false;
+            presentBoard(g);
+            
         }
-      
-        return false;
-    }
-    
-    public boolean underAttackByBlack(int x, int y) {
-        for (Piece p : blackPieces) {
-            if (p.moveLegal(x, y) && p.getInPlay() && p.pathClear(x, y)) {
-                return true;
-            }
+        
+        
+        
+        if(tileILit && !tileFLit)
+        {
+            eventBoardLocationF = eventBoardLocation;
+            lightTile(eventBoardLocationF);
+            tileFLit = true;
+            board[(int)eventBoardLocationI.getX()][(int)eventBoardLocationI.getY()].updatePos((int)eventBoardLocationF.getX(), (int)eventBoardLocationF.getY());
+            
         }
-      
-        return false;
+        
+        if(!tileILit && !tileFLit)
+        {
+            eventBoardLocationI = eventBoardLocation;
+            lightTile(eventBoardLocationI);
+            tileILit = true;
+        }
     }
+
+    @Override
+    public void mouseReleased(MouseEvent e) { }
+
+    @Override
+    public void mouseEntered(MouseEvent e) { }
+
+    @Override
+    public void mouseExited(MouseEvent e) { }
     
-    public void testMethod() {
-    System.out.println("Test successful");
-    }
+    //Add key binding yo enter or space key to perform action
 }
-
