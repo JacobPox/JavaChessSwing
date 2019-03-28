@@ -1,4 +1,4 @@
-package projectoverlord;
+package projectoverlord2;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import java.util.*;
 
 public class ChessBoard extends JPanel implements MouseListener
 {
@@ -23,6 +24,8 @@ public class ChessBoard extends JPanel implements MouseListener
     private JTextField keyboard;
     private Point eventBoardLocationI;
     private Point eventBoardLocationF;
+    ArrayList<Piece> blackPieces = new ArrayList<Piece>();
+    ArrayList<Piece> whitePieces = new ArrayList<Piece>();
     
     
     public ChessBoard()
@@ -40,6 +43,7 @@ public class ChessBoard extends JPanel implements MouseListener
         
         setup();
         fillBoard();
+        storePieces();
         
         addMouseListener(this);
     }
@@ -186,6 +190,44 @@ public class ChessBoard extends JPanel implements MouseListener
             y += tileSideLength;
         }
         drawPieces(g);
+    }
+    
+    public void storePieces() {
+
+        for (int x = 0; x < 8; x++) {
+            blackPieces.add(board[x][0]);
+            blackPieces.add(board[x][1]);
+
+            whitePieces.add(board[x][6]);
+            whitePieces.add(board[x][7]);
+            }
+        }
+        
+     public boolean whiteKingInCheck(Piece whiteKing) {
+        int x = whiteKing.getX();
+        int y = whiteKing.getY();
+        
+        for (Piece p : blackPieces) {
+            if (p.moveLegal(x, y) && p.getInPlay() && p.pathClear(x, y)) {
+                return true;
+            }
+            
+            return false;
+
+    }
+
+    public boolean blackKingInCheck(Piece blackKing) {
+        int x = blackKing.getX();
+        int y = blackKing.getY();
+
+        for (Piece p : whitePieces) {
+            if (p.moveLegal(x, y) && p.getInPlay() && p.pathClear(x, y)) {
+                return true;
+            }
+        }
+
+        return false;
+
     }
     
     public void lightTile(Point tile, Color c)
