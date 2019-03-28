@@ -3,8 +3,6 @@
 ## To Do List
 * Add en passant
 * Add castling
-* Improve UI
-  * Create mouseListeners
 
 ## Known Bugs
 * Wrong message sent during an invalid move. This is caused by the following steps:
