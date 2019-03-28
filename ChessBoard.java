@@ -470,7 +470,10 @@ public class ChessBoard extends JPanel implements MouseListener
         if(eventBoardLocationF == null && eventBoardLocationI != null)
         {
             eventBoardLocationF = eventBoardLocation;
-            if((whiteTeamGoing && board[(int)eventBoardLocationI.getX()][(int)eventBoardLocationI.getY()].getPlayer().equals("white")) || (!whiteTeamGoing && board[(int)eventBoardLocationI.getX()][(int)eventBoardLocationI.getY()].getPlayer().equals("black")))
+            if(((whiteTeamGoing && board[(int)eventBoardLocationI.getX()][(int)eventBoardLocationI.getY()].getPlayer().equals("white"))
+                    || (!whiteTeamGoing && board[(int)eventBoardLocationI.getX()][(int)eventBoardLocationI.getY()].getPlayer().equals("black")))
+                    && board[(int)eventBoardLocationI.getX()][(int)eventBoardLocationI.getY()].moveLegal((int)eventBoardLocationF.getX(), (int)eventBoardLocationF.getY()))
+                    
             {
                 board[(int)eventBoardLocationI.getX()][(int)eventBoardLocationI.getY()].updatePos((int)eventBoardLocationF.getX(), (int)eventBoardLocationF.getY());
                 whiteTeamGoing = !whiteTeamGoing;
