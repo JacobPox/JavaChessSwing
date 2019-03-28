@@ -1,3 +1,5 @@
+package projectoverlord;
+
 import java.awt.image.BufferedImage;
 
 public class Empty extends Piece {
