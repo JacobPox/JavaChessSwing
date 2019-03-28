@@ -1,3 +1,5 @@
+package projectoverlord;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -18,6 +20,7 @@ public class ChessBoard extends JPanel implements MouseListener
     private final int tileSideLength;
     private final int WIDTH;
     private final int HEIGHT;
+    private boolean whiteTeamGoing;
     private JButton button;
     private JTextField keyboard;
     private Point eventBoardLocationI;
@@ -38,6 +41,7 @@ public class ChessBoard extends JPanel implements MouseListener
         HEIGHT = iconWidth * 16;
         eventBoardLocationI = null;
         eventBoardLocationF = new Point(-1, -1);
+        whiteTeamGoing = true;
         
         setup();
         fillBoard();
@@ -463,14 +467,16 @@ public class ChessBoard extends JPanel implements MouseListener
     {
         Point eventBoardLocation = getTileAtScreenLocation(e.getPoint());
         Graphics g = getGraphics();
-        
         if(eventBoardLocationF == null && eventBoardLocationI != null)
         {
             eventBoardLocationF = eventBoardLocation;
-            board[(int)eventBoardLocationI.getX()][(int)eventBoardLocationI.getY()].updatePos((int)eventBoardLocationF.getX(), (int)eventBoardLocationF.getY());
+            if((whiteTeamGoing && board[(int)eventBoardLocationI.getX()][(int)eventBoardLocationI.getY()].getPlayer().equals("white")) || (!whiteTeamGoing && board[(int)eventBoardLocationI.getX()][(int)eventBoardLocationI.getY()].getPlayer().equals("black")))
+            {
+                board[(int)eventBoardLocationI.getX()][(int)eventBoardLocationI.getY()].updatePos((int)eventBoardLocationF.getX(), (int)eventBoardLocationF.getY());
+                whiteTeamGoing = !whiteTeamGoing;
+            }
             eventBoardLocationI = null;
             presentBoard(g);
-            System.out.println("turn2");
         }
         
         if(eventBoardLocationI == null && eventBoardLocationF != null)
@@ -478,7 +484,6 @@ public class ChessBoard extends JPanel implements MouseListener
             eventBoardLocationI = eventBoardLocation;
             lightTile(eventBoardLocationI, Color.WHITE);
             eventBoardLocationF = null;
-            System.out.println("turn1");
         }
     }
 
