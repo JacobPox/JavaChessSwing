@@ -1,4 +1,4 @@
-package projectoverlord2;
+package projectoverlord;
 
 import java.util.Scanner;
 
