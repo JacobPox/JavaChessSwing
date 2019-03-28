@@ -11,6 +11,12 @@ public class Empty extends Piece {
         super(board, "neutral", " ", x, y);
     }
     
+    @Override
+    public boolean moveLegal(int x, int y)
+    {
+        return false;
+    }
+    
     public BufferedImage getPieceIcon()
     {
         return null;
