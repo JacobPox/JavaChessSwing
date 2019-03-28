@@ -37,8 +37,8 @@ public class Piece // piece needs to be sent the board!!!!
         this.inPlay = true; 
         this.curX = x;
         this.curY = y;
-        this.whiteChessIconFilePath = "src\\whiteTeamIcons\\";
-        this.blackChessIconFilePath = "src\\blackTeamIcons\\";
+        this.whiteChessIconFilePath = "src\\projectoverlord\\whiteTeamIcons\\";
+        this.blackChessIconFilePath = "src\\projectoverlord\\blackTeamIcons\\";
     }
     
     //Either moves piece to (x, y) or tells user to pick another location
