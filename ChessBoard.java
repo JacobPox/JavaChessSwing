@@ -1,5 +1,3 @@
-package projectoverlord2;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -24,8 +22,8 @@ public class ChessBoard extends JPanel implements MouseListener
     private JTextField keyboard;
     private Point eventBoardLocationI;
     private Point eventBoardLocationF;
-    ArrayList<Piece> blackPieces = new ArrayList<Piece>();
-    ArrayList<Piece> whitePieces = new ArrayList<Piece>();
+    ArrayList<Piece> blackPieces = new ArrayList<>();
+    ArrayList<Piece> whitePieces = new ArrayList<>();
     
     
     public ChessBoard()
@@ -204,17 +202,17 @@ public class ChessBoard extends JPanel implements MouseListener
         }
         
      public boolean whiteKingInCheck(Piece whiteKing) {
-        int x = whiteKing.getX();
-        int y = whiteKing.getY();
-        
-        for (Piece p : blackPieces) {
-            if (p.moveLegal(x, y) && p.getInPlay() && p.pathClear(x, y)) {
-                return true;
-            }
-            
-            return false;
+         int x = whiteKing.getX();
+         int y = whiteKing.getY();
 
-    }
+         for (Piece p : blackPieces) {
+             if (p.moveLegal(x, y) && p.getInPlay() && p.pathClear(x, y)) {
+                 return true;
+             }
+         }
+
+         return false;
+     }
 
     public boolean blackKingInCheck(Piece blackKing) {
         int x = blackKing.getX();
